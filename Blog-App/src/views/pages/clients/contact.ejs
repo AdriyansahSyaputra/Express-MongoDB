@@ -1,0 +1,270 @@
+<%- include ('/layouts/header') %>
+    <%- include ('/layouts/navbar') %>
+
+        <!-- 1. Hero Section -->
+        <section class="bg-gradient-to-r from-indigo-700 to-purple-800 text-white py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    <i class="fas fa-envelope-open-text mr-3"></i> Hubungi Kami
+                </h1>
+                <p class="text-xl max-w-3xl mx-auto">
+                    Punya pertanyaan atau ingin berkolaborasi? Tim kami siap membantu Anda.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. Contact Main Section -->
+        <section class="py-16 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-lg p-8 md:p-10">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            <i class="fas fa-paper-plane text-indigo-600 dark:text-indigo-400 mr-3"></i> Kirim Pesan
+                        </h2>
+
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama
+                                        Lengkap</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-user text-gray-400"></i>
+                                        </div>
+                                        <input type="text" id="name"
+                                            class="pl-10 w-full rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 py-3 px-4"
+                                            placeholder="Nama Anda">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="email"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-envelope text-gray-400"></i>
+                                        </div>
+                                        <input type="email" id="email"
+                                            class="pl-10 w-full rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 py-3 px-4"
+                                            placeholder="email@contoh.com">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="subject"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subjek</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-tag text-gray-400"></i>
+                                    </div>
+                                    <input type="text" id="subject"
+                                        class="pl-10 w-full rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 py-3 px-4"
+                                        placeholder="Apa yang bisa kami bantu?">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="message"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pesan</label>
+                                <div class="relative">
+                                    <div class="absolute top-3 left-3">
+                                        <i class="fas fa-comment-dots text-gray-400"></i>
+                                    </div>
+                                    <textarea id="message" rows="5"
+                                        class="pl-10 w-full rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 py-3 px-4"
+                                        placeholder="Tulis pesan Anda disini..."></textarea>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button type="submit"
+                                    class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors flex items-center justify-center">
+                                    <i class="fas fa-paper-plane mr-2"></i> Kirim Pesan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            <i class="fas fa-info-circle text-indigo-600 dark:text-indigo-400 mr-3"></i> Informasi
+                            Kontak
+                        </h2>
+
+                        <div class="space-y-6">
+                            <!-- Address -->
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg p-3">
+                                    <i class="fas fa-map-marker-alt text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Kantor Kami</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-1">
+                                        Jl. Teknologi No. 123, Jakarta Selatan<br>
+                                        DKI Jakarta, Indonesia 12540
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg p-3">
+                                    <i class="fas fa-envelope text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Email</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-1">
+                                        <a href="mailto:hello@blogtech.id"
+                                            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                            hello@blogtech.id
+                                        </a>
+                                    </p>
+                                    <p class="text-gray-600 dark:text-gray-300">
+                                        <a href="mailto:support@blogtech.id"
+                                            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                            support@blogtech.id
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg p-3">
+                                    <i class="fas fa-phone-alt text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Telepon</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 mt-1">
+                                        <a href="tel:+622112345678"
+                                            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                            +62 21 1234 5678
+                                        </a>
+                                    </p>
+                                    <p class="text-gray-600 dark:text-gray-300">
+                                        <a href="tel:+6281234567890"
+                                            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                            +62 812 3456 7890 (WhatsApp)
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Social Media -->
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg p-3">
+                                    <i class="fas fa-share-alt text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Media Sosial</h3>
+                                    <div class="flex space-x-4 mt-2">
+                                        <a href="#"
+                                            class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-colors">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#"
+                                            class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-colors">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <a href="#"
+                                            class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-colors">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                        <a href="#"
+                                            class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-colors">
+                                            <i class="fab fa-youtube"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Map Embed -->
+                        <div class="mt-8 rounded-xl overflow-hidden shadow-lg">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613506394!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b462cb9e75a5039!2sMonumen%20Nasional!5e0!3m2!1sen!2sid!4v1621234567890!5m2!1sen!2sid"
+                                width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                                class="dark:grayscale-[50%] dark:opacity-90"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. FAQ Section -->
+        <section class="py-16 bg-gray-50 dark:bg-gray-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
+                    <i class="fas fa-question-circle text-indigo-600 dark:text-indigo-400 mr-3"></i> Pertanyaan Umum
+                </h2>
+
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-6 text-left">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                Bagaimana cara berkontribusi ke blog ini?
+                            </h3>
+                            <i
+                                class="fas fa-chevron-down text-indigo-600 dark:text-indigo-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content px-6 pb-6 hidden">
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Anda bisa mengirimkan proposal artikel melalui email ke contributors@blogtech.id atau
+                                melalui form kontributor di dashboard member. Tim editorial kami akan meninjau dan
+                                memberikan feedback dalam 3-5 hari kerja.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Items 2-4 would follow similar structure -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. CTA Section -->
+        <section class="py-20 bg-indigo-600 text-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Masih Ada Pertanyaan?</h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">
+                    Tim support kami siap membantu 24/7 melalui berbagai channel komunikasi.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#"
+                        class="px-8 py-4 bg-white text-indigo-600 rounded-xl font-bold hover:bg-gray-100 hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-comments mr-3"></i> Live Chat
+                    </a>
+                    <a href="#"
+                        class="px-8 py-4 border-2 border-white text-white rounded-xl font-bold hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-headset mr-3"></i> Support Center
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Script for FAQ Toggle -->
+        <script>
+            document.querySelectorAll('.faq-toggle').forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('i');
+
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+        </script>
+
+        <style>
+            .dark .dark\:grayscale-\[50\%\] {
+                filter: grayscale(50%);
+            }
+        </style>
+
+        <%- include ('/layouts/footer') %>

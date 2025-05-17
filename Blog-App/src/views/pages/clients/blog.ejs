@@ -1,0 +1,295 @@
+<%- include('/layouts/header') %>
+    <%- include('/layouts/navbar') %>
+
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-indigo-700 to-purple-800 text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    <i class="fas fa-book-open mr-3"></i> Blog Resources
+                </h1>
+                <p class="text-xl max-w-3xl mx-auto mb-8">
+                    Temukan 48+ artikel berkualitas seputar pengembangan web, desain, dan teknologi terkini.
+                </p>
+                <div class="relative max-w-md mx-auto">
+                    <input type="text" placeholder="Cari artikel..."
+                        class="w-full pl-12 pr-4 py-3 rounded-full border-0 focus:ring-2 focus:ring-indigo-300 text-gray-900">
+                    <i class="fas fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                    <button
+                        class="absolute right-1.5 top-1.5 bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 transition-colors">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Sidebar -->
+                <aside class="lg:w-1/4">
+                    <!-- Categories -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="font-bold text-lg mb-4 flex items-center">
+                            <i class="fas fa-tags mr-2 text-indigo-600"></i> Categories
+                        </h3>
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="/blog?category=web-development"
+                                    class="flex items-center justify-between px-3 py-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 transition-colors">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-code mr-3"></i>
+                                        <span>Web Development</span>
+                                    </div>
+                                    <span class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded-full">12</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/blog?category=ui-ux"
+                                    class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-paint-brush mr-3"></i>
+                                        <span>UI/UX Design</span>
+                                    </div>
+                                    <span class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded-full">8</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/blog?category=mobile"
+                                    class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-mobile-alt mr-3"></i>
+                                        <span>Mobile Dev</span>
+                                    </div>
+                                    <span class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded-full">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/blog?category=devops"
+                                    class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-server mr-3"></i>
+                                        <span>DevOps</span>
+                                    </div>
+                                    <span class="bg-gray-200 dark:bg-gray-600 text-xs px-2 py-1 rounded-full">2</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Popular Tags -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                        <h3 class="font-bold text-lg mb-4 flex items-center">
+                            <i class="fas fa-hashtag mr-2 text-indigo-600"></i> Trending Tags
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="/blog?tag=javascript"
+                                class="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                #JavaScript
+                            </a>
+                            <a href="/blog?tag=react"
+                                class="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                #React
+                            </a>
+                            <a href="/blog?tag=tailwind"
+                                class="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                #Tailwind
+                            </a>
+                            <a href="/blog?tag=nodejs"
+                                class="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                #Node.js
+                            </a>
+                            <a href="/blog?tag=figma"
+                                class="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                #Figma
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Articles Section -->
+                <main class="lg:w-3/4">
+                    <!-- Articles Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Article 1 -->
+                        <article
+                            class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://source.unsplash.com/random/600x400/?tailwind,css"
+                                    alt="Tailwind CSS v3.3"
+                                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                <div
+                                    class="absolute top-3 left-3 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-star mr-1"></i> Featured
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+                                    <div class="flex flex-wrap gap-2">
+                                        <a href="/blog?tag=tailwind"
+                                            class="text-xs px-2 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20">
+                                            #Tailwind
+                                        </a>
+                                        <a href="/blog?tag=css"
+                                            class="text-xs px-2 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20">
+                                            #CSS
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                                    <span class="flex items-center">
+                                        <i class="far fa-calendar-alt mr-1"></i>
+                                        15 Mei 2023
+                                    </span>
+                                    <span class="mx-2">•</span>
+                                    <span class="flex items-center">
+                                        <i class="far fa-clock mr-1"></i>
+                                        8 min read
+                                    </span>
+                                </div>
+                                <h2
+                                    class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                    <a href="/blog/tailwind-v3-guide">Panduan Lengkap Tailwind CSS v3.3</a>
+                                </h2>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                    Pelajari fitur-fitur terbaru termasuk arbitrary properties dan multi-column layout.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <img src="https://i.pravatar.cc/150?img=5" alt="Budi Developer"
+                                            class="w-8 h-8 rounded-full mr-2">
+                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            Budi Developer
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                                        <i class="far fa-comment-alt mr-1"></i> 14
+                                        <span class="mx-2">•</span>
+                                        <i class="far fa-heart mr-1"></i> 89
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Article 2 -->
+                        <article
+                            class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://source.unsplash.com/random/600x400/?react"
+                                    alt="React Server Components"
+                                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+                                    <div class="flex flex-wrap gap-2">
+                                        <a href="/blog?tag=react"
+                                            class="text-xs px-2 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20">
+                                            #React
+                                        </a>
+                                        <a href="/blog?tag=javascript"
+                                            class="text-xs px-2 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-white/20">
+                                            #JavaScript
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                                    <span class="flex items-center">
+                                        <i class="far fa-calendar-alt mr-1"></i>
+                                        10 Mei 2023
+                                    </span>
+                                    <span class="mx-2">•</span>
+                                    <span class="flex items-center">
+                                        <i class="far fa-clock mr-1"></i>
+                                        12 min read
+                                    </span>
+                                </div>
+                                <h2
+                                    class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                    <a href="/blog/react-server-components">Memahami React Server Components</a>
+                                </h2>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                    Cara kerja RSC dan perbedaannya dengan komponen tradisional.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <img src="https://i.pravatar.cc/150?img=11" alt="Sarah Frontend"
+                                            class="w-8 h-8 rounded-full mr-2">
+                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            Sarah Frontend
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                                        <i class="far fa-comment-alt mr-1"></i> 23
+                                        <span class="mx-2">•</span>
+                                        <i class="far fa-heart mr-1"></i> 145
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-12 flex justify-center">
+                        <nav class="flex items-center space-x-2">
+                            <a href="#"
+                                class="px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <a href="#" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-medium">
+                                1
+                            </a>
+                            <a href="#"
+                                class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                2
+                            </a>
+                            <a href="#"
+                                class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                3
+                            </a>
+                            <a href="#"
+                                class="px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Popular Authors Section -->
+        <section class="py-16 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-users mr-3 text-indigo-600"></i> Penulis Populer
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Temukan artikel dari penulis berpengalaman di bidangnya
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Author 1 -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                        <img class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-indigo-500"
+                            src="https://i.pravatar.cc/150?img=5" alt="Budi Developer">
+                        <h3 class="font-semibold text-lg text-gray-900 dark:text-white mb-1">Budi Developer</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">Frontend Expert</p>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Other authors... -->
+                </div>
+            </div>
+        </section>
+        <%- include('/layouts/footer') %>

@@ -1,0 +1,201 @@
+<%- include('/layouts/header') %>
+    <%- include('/layouts/navbar') %>
+
+        <!-- 1. Hero Section -->
+        <section class="bg-gradient-to-r from-indigo-700 to-purple-800 text-white py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    <i class="fas fa-lightbulb mr-3"></i> Tentang Kami
+                </h1>
+                <p class="text-xl max-w-3xl mx-auto">
+                    Menghadirkan konten berkualitas untuk membantu developer dan desainer meningkatkan skill mereka
+                    sejak 2020.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. Our Story Section -->
+        <section class="py-16 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                            <i class="fas fa-history text-indigo-600 mr-3"></i> Cerita Kami
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            BlogTech dimulai dari sebuah komunitas kecil developer yang ingin berbagi pengetahuan. Pada
+                            tahun
+                            2020, kami memutuskan untuk membuat platform yang lebih terstruktur.
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                            Sekarang kami telah berkembang menjadi salah satu sumber belajar terpercaya dengan lebih
+                            dari 100
+                            konten premium dan 50.000 pembaca bulanan.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-indigo-50 dark:bg-indigo-900/20 px-4 py-3 rounded-lg">
+                                <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">100+</div>
+                                <div class="text-gray-600 dark:text-gray-300 text-sm">Artikel Berkualitas</div>
+                            </div>
+                            <div class="bg-indigo-50 dark:bg-indigo-900/20 px-4 py-3 rounded-lg">
+                                <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">50K+</div>
+                                <div class="text-gray-600 dark:text-gray-300 text-sm">Pembaca Bulanan</div>
+                            </div>
+                            <div class="bg-indigo-50 dark:bg-indigo-900/20 px-4 py-3 rounded-lg">
+                                <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">15+</div>
+                                <div class="text-gray-600 dark:text-gray-300 text-sm">Penulis Ahli</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative rounded-xl overflow-hidden shadow-lg">
+                        <img src="https://source.unsplash.com/random/800x600/?office,team" alt="Tim Kami"
+                            class="w-full h-auto object-cover">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex items-end p-6">
+                            <span class="text-white text-sm">Tim BlogTech di kantor pusat Jakarta, 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Our Team Section -->
+        <section class="py-16 bg-gray-50 dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-users text-indigo-600 mr-3"></i> Tim Inti Kami
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Berikut orang-orang di balik kesuksesan BlogTech
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Team Member 1 -->
+                    <div
+                        class="bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <img src="https://i.pravatar.cc/400?img=32" alt="Andi Wijaya" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">Andi Wijaya</h3>
+                            <p class="text-indigo-600 dark:text-indigo-400 mb-3">Founder & Lead Developer</p>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                                Spesialis Frontend dengan 10+ tahun pengalaman di React dan Vue.
+                            </p>
+                            <div class="flex space-x-3">
+                                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div
+                        class="bg-white dark:bg-gray-700 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <img src="https://i.pravatar.cc/400?img=11" alt="Sarah Lee" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">Sarah Lee</h3>
+                            <p class="text-indigo-600 dark:text-indigo-400 mb-3">Head of Design</p>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                                Ahli UX/UX dengan passion untuk menciptakan pengalaman pengguna yang intuitif.
+                            </p>
+                            <div class="flex space-x-3">
+                                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                    <i class="fab fa-dribbble"></i>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                    <i class="fab fa-behance"></i>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Members 3 & 4 would follow similar structure -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Our Values Section -->
+        <section class="py-16 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-heart text-indigo-600 mr-3"></i> Nilai-Nilai Kami
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Prinsip yang memandu setiap keputusan dan konten kami
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Value 1 -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl hover:shadow-md transition-shadow duration-300">
+                        <div
+                            class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-graduation-cap text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Pendidikan Berkualitas</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Kami berkomitmen untuk menyajikan konten yang akurat, terupdate, dan mudah dipahami.
+                        </p>
+                    </div>
+
+                    <!-- Value 2 -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl hover:shadow-md transition-shadow duration-300">
+                        <div
+                            class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-hands-helping text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Komunitas Terbuka</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Kami percaya pada kolaborasi dan pertukaran ide yang inklusif.
+                        </p>
+                    </div>
+
+                    <!-- Value 3 -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl hover:shadow-md transition-shadow duration-300">
+                        <div
+                            class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-bolt text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Inovasi Terus Menerus</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Selalu mencari cara baru untuk menyampaikan konten yang lebih baik.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CTA Section -->
+        <section class="py-20 bg-indigo-600 text-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Tertarik Bergabung?</h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">
+                    Baik sebagai pembaca, kontributor, atau partner, kami selalu terbuka untuk kolaborasi.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/contact"
+                        class="px-8 py-4 bg-white text-indigo-600 rounded-xl font-bold hover:bg-gray-100 hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-envelope mr-3"></i> Hubungi Kami
+                    </a>
+                    <a href="/careers"
+                        class="px-8 py-4 border-2 border-white text-white rounded-xl font-bold hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-briefcase mr-3"></i> Karir
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <%- include('/layouts/footer') %>
