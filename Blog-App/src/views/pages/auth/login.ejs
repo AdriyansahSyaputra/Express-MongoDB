@@ -4,147 +4,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | <%- title %></title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Modern Blog | Authentication</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Check for dark mode preference
-        if (localStorage.getItem('darkMode') === 'true' ||
-            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
         }
     </script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-900 h-full flex items-center justify-center p-4">
-    <div class="w-full max-w-md">
-        <!-- Theme Toggle -->
-        <div class="flex justify-end mb-4">
-            <button id="themeToggle"
-                class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                <i class="fas fa-moon dark:hidden"></i>
-                <i class="fas fa-sun hidden dark:inline"></i>
-            </button>
-        </div>
+<body class="h-full bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-2xl">
+            <!-- Theme Toggle -->
+            <div class="flex justify-end">
+                <button id="theme-toggle" type="button"
+                    class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                </button>
+            </div>
 
-        <!-- Login Card -->
-        <div
-            class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl">
-            <div class="p-8">
-                <div class="flex justify-center mb-6">
-                    <div class="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full">
-                        <i class="fas fa-user text-indigo-600 dark:text-indigo-300 text-2xl"></i>
-                    </div>
-                </div>
+            <!-- Logo/Brand -->
+            <div class="flex flex-col items-center">
+                <i class="fas fa-blog text-5xl text-primary-600 dark:text-primary-500 mb-2"></i>
+                <h2 class="mt-2 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+                    Modern Blog
+                </h2>
+                <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
+                    Share your stories with the world
+                </p>
+            </div>
 
-                <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white mb-1">Welcome Back</h2>
-                <p class="text-center text-gray-600 dark:text-gray-300 mb-6">Login to your account</p>
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-200 dark:border-gray-700">
+                <button id="login-tab"
+                    class="flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm text-primary-600 dark:text-primary-500 border-primary-500 dark:border-primary-400">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+                </button>
+                <button id="register-tab"
+                    class="flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-300">
+                    <i class="fas fa-user-plus mr-2"></i>Sign Up
+                </button>
+            </div>
 
-                <form id="loginForm">
-                    <div class="mb-4">
-                        <label for="email"
-                            class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Email</label>
+            <!-- Login Form -->
+            <form id="login-form" class="mt-8 space-y-6" action="#" method="POST">
+                <input type="hidden" name="remember" value="true">
+                <div class="rounded-md shadow-sm space-y-4">
+                    <div>
+                        <label for="email" class="sr-only">Email address</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-envelope text-gray-400"></i>
                             </div>
-                            <input type="email" id="email" name="email" required
-                                class="pl-10 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                                placeholder="your@email.com">
+                            <input id="login-email" name="email" type="email" autocomplete="email" required
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
+                                placeholder="Email address">
                         </div>
                     </div>
-
-                    <div class="mb-6">
-                        <label for="password"
-                            class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Password</label>
+                    <div>
+                        <label for="password" class="sr-only">Password</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-lock text-gray-400"></i>
                             </div>
-                            <input type="password" id="password" name="password" required
-                                class="pl-10 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                                placeholder="••••••••">
-                            <button type="button"
-                                class="absolute right-3 top-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                id="togglePassword">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                            <input id="login-password" name="password" type="password" autocomplete="current-password"
+                                required
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
+                                placeholder="Password">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <button type="button" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                                    id="toggle-login-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center">
-                            <input id="remember" name="remember" type="checkbox"
-                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
-                            <label for="remember" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Remember
-                                me</label>
-                        </div>
-                        <a href="#" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">Forgot
-                            password?</a>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox"
+                            class="h-4 w-4 text-primary-600 dark:text-primary-500 focus:ring-primary-500 dark:focus:ring-primary-400 border-gray-300 dark:border-gray-600 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                            Remember me
+                        </label>
                     </div>
 
+                    <div class="text-sm">
+                        <a href="#"
+                            class="font-medium text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300">
+                            Forgot your password?
+                        </a>
+                    </div>
+                </div>
+
+                <div>
                     <button type="submit"
-                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center">
-                        <span>Login</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-primary-400 transition-colors">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <i
+                                class="fas fa-sign-in-alt text-primary-200 dark:text-primary-300 group-hover:text-primary-100"></i>
+                        </span>
+                        Sign in
                     </button>
-                </form>
-
-                <div class="mt-6 text-center">
-                    <p class="text-gray-600 dark:text-gray-400">Don't have an account?
-                        <a href="register.html"
-                            class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">Register</a>
-                    </p>
                 </div>
 
-                <div class="mt-6">
-                    <div class="relative">
-                        <div class="absolute inset-0 flex items-center">
-                            <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                        </div>
-                        <div class="relative flex justify-center text-sm">
-                            <span class="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">Or continue
-                                with</span>
-                        </div>
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
                     </div>
-
-                    <div class="mt-6 grid grid-cols-2 gap-3">
-                        <a href="#"
-                            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-200">
-                            <i class="fab fa-google text-red-500 mr-2"></i> Google
-                        </a>
-                        <a href="#"
-                            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-200">
-                            <i class="fab fa-github text-gray-800 dark:text-gray-300 mr-2"></i> GitHub
-                        </a>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                            Or continue with
+                        </span>
                     </div>
                 </div>
-            </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <a href="#"
+                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fab fa-google text-red-500"></i>
+                    </a>
+                    <a href="#"
+                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#"
+                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fab fa-twitter text-blue-400"></i>
+                    </a>
+                </div>
+            </form>
+
+            <!-- Register Form (Hidden by default) -->
+            <form id="register-form" class="mt-8 space-y-6 hidden" action="#" method="POST">
+                <div class="rounded-md shadow-sm space-y-4">
+                    <div>
+                        <label for="name" class="sr-only">Full Name</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input id="name" name="name" type="text" autocomplete="name" required
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
+                                placeholder="Full Name">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email" class="sr-only">Email address</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input id="register-email" name="email" type="email" autocomplete="email" required
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
+                                placeholder="Email address">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password" class="sr-only">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input id="register-password" name="password" type="password" autocomplete="new-password"
+                                required
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
+                                placeholder="Password">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <button type="button" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                                    id="toggle-register-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="confirm-password" class="sr-only">Confirm Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input id="confirm-password" name="confirm-password" type="password"
+                                autocomplete="new-password" required
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
+                                placeholder="Confirm Password">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <input id="terms" name="terms" type="checkbox"
+                        class="h-4 w-4 text-primary-600 dark:text-primary-500 focus:ring-primary-500 dark:focus:ring-primary-400 border-gray-300 dark:border-gray-600 rounded">
+                    <label for="terms" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                        I agree to the <a href="#"
+                            class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300">Terms</a>
+                        and <a href="#"
+                            class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300">Privacy
+                            Policy</a>
+                    </label>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-primary-400 transition-colors">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <i
+                                class="fas fa-user-plus text-primary-200 dark:text-primary-300 group-hover:text-primary-100"></i>
+                        </span>
+                        Create Account
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <script>
-        // Toggle password visibility
-        document.getElementById('togglePassword').addEventListener('click', function () {
-            const passwordInput = document.getElementById('password');
-            const icon = this.querySelector('i');
+    <script src="/js/script.js"></script>
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
-            }
-        });
-
-        // Theme toggle
-        document.getElementById('themeToggle').addEventListener('click', function () {
-            const html = document.documentElement;
-            html.classList.toggle('dark');
-            localStorage.setItem('darkMode', html.classList.contains('dark'));
-        });
-    </script>
 </body>
 
 </html>
