@@ -3,6 +3,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const clientRoutes = require("./routes/clientRoutes");
 const authRoutes = require("./routes/authRoutes");
+const DashboardRoutes = require("./routes/dashboardRoutes");
 const ejs = require("ejs");
 
 const app = express();
@@ -14,11 +15,15 @@ app.set("view options", {
   root: path.join(__dirname, "views"),
 });
 
+// Set Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Set View
 app.set("views", path.join(__dirname, "views"));
 
 // Static Files
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Method Override
 app.use(methodOverride("_method"));
@@ -26,6 +31,7 @@ app.use(methodOverride("_method"));
 // Routes
 app.use("/", clientRoutes);
 app.use("/auth", authRoutes);
+app.use("/dashboard", DashboardRoutes);
 
 // Simple error handling
 app.use((req, res) => {

@@ -1,41 +1,73 @@
 @import "tailwindcss";
 
 /* Custom styles if needed */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 body {
-    font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* Smooth transitions for theme changes */
 * {
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Custom focus styles */
-input:focus, button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3);
+input:focus,
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3);
 }
 
-.dark input:focus, .dark button:focus {
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+.dark input:focus,
+.dark button:focus {
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
 }
 
 /* Custom scrollbar for dark mode */
 .dark ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .dark ::-webkit-scrollbar-track {
-    background: #1f2937;
+  background: #1f2937;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: #4b5563;
-    border-radius: 4px;
+  background: #4b5563;
+  border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
+  background: #6b7280;
+}
+
+.sidebar-collapsed {
+  width: 80px;
+}
+
+.sidebar-collapsed .sidebar-item-text,
+.sidebar-collapsed .logo-text {
+  display: none;
+}
+
+.sidebar-collapsed .sidebar-item {
+  justify-content: center;
+}
+
+.content-expanded {
+  margin-left: 80px;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Text Editor */
+.ck-editor__editable {
+  min-height: 300px;
+}
+.image-preview {
+  max-height: 200px;
+  object-fit: cover;
 }

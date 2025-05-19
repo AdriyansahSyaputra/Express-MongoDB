@@ -1,0 +1,232 @@
+<%- include('/layouts/dashboard/header') %>
+<%- include('/layouts/dashboard/topbar') %>
+<%- include('/layouts/dashboard/sidebar') %>
+
+<main id="main-content" class="pt-16 px-4 transition-all duration-300 ml-64">
+    <div class="py-6">
+        <!-- Page Header -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Dashboard Overview</h2>
+            <p class="text-gray-600 dark:text-gray-400">Welcome back, Admin! Here's what's happening with your blog.
+            </p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Posts</p>
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mt-1">124</h3>
+                        <p class="text-green-500 text-sm mt-1">
+                            <i class="fas fa-arrow-up mr-1"></i> 12% from last month
+                        </p>
+                    </div>
+                    <div class="bg-[#e0f2fe] dark:bg-[#0c4a6e] p-3 rounded-full">
+                        <i class="fas fa-file-alt text-[#0284c7] dark:text-[#38bdf8] text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Comments</p>
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mt-1">356</h3>
+                        <p class="text-green-500 text-sm mt-1">
+                            <i class="fas fa-arrow-up mr-1"></i> 8% from last month
+                        </p>
+                    </div>
+                    <div class="bg-green-100 dark:bg-green-900 p-3 rounded-full">
+                        <i class="fas fa-comments text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Users</p>
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mt-1">1,245</h3>
+                        <p class="text-green-500 text-sm mt-1">
+                            <i class="fas fa-arrow-up mr-1"></i> 5% from last month
+                        </p>
+                    </div>
+                    <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-full">
+                        <i class="fas fa-users text-blue-600 dark:text-blue-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Page Views</p>
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mt-1">24,589</h3>
+                        <p class="text-red-500 text-sm mt-1">
+                            <i class="fas fa-arrow-down mr-1"></i> 3% from last month
+                        </p>
+                    </div>
+                    <div class="bg-purple-100 dark:bg-purple-900 p-3 rounded-full">
+                        <i class="fas fa-eye text-purple-600 dark:text-purple-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Posts & Activity -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Recent Posts -->
+            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                    <h3 class="text-lg font-medium text-gray-800 dark:text-white">Recent Posts</h3>
+                    <a href="#" class="text-sm text-[#0284c7] dark:text-[#38bdf8] hover:underline">View All</a>
+                </div>
+                <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <div class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-800 dark:text-white">Getting Started with Node.js
+                                </h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Published on May 15, 2023
+                                </p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <span
+                                    class="px-2 py-1 text-xs rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Published</span>
+                                <button class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-800 dark:text-white">Mastering MongoDB for Web Apps
+                                </h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Published on May 10, 2023
+                                </p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <span
+                                    class="px-2 py-1 text-xs rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Published</span>
+                                <button class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-800 dark:text-white">Express.js Best Practices</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Draft - Last edited May 8,
+                                    2023</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <span
+                                    class="px-2 py-1 text-xs rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">Draft</span>
+                                <button class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-800 dark:text-white">Building RESTful APIs</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Scheduled for May 20, 2023
+                                </p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <span
+                                    class="px-2 py-1 text-xs rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">Scheduled</span>
+                                <button class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-medium text-gray-800 dark:text-white">Recent Activity</h3>
+                </div>
+                <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <div class="px-6 py-4">
+                        <div class="flex items-start">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-[#e0f2fe] dark:bg-primary-900 flex items-center justify-center text-[#0284c7] dark:text-[#38bdf8]">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-gray-700 dark:text-gray-300">
+                                    <span class="font-medium text-gray-900 dark:text-white">John Doe</span>
+                                    commented on <a href="#"
+                                        class="text-[#0284c7] dark:text-[#38bdf8] hover:underline">"Getting
+                                        Started with Node.js"</a>
+                                </p>
+                                <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4">
+                        <div class="flex items-start">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-400">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-gray-700 dark:text-gray-300">
+                                    New user <span class="font-medium text-gray-900 dark:text-white">Jane
+                                        Smith</span> registered
+                                </p>
+                                <p class="text-xs text-gray-500 mt-1">5 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4">
+                        <div class="flex items-start">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-gray-700 dark:text-gray-300">
+                                    You updated <a href="#"
+                                        class="text-[#0284c7] dark:text-[#38bdf8] hover:underline">"Express.js
+                                        Best Practices"</a>
+                                </p>
+                                <p class="text-xs text-gray-500 mt-1">1 day ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4">
+                        <div class="flex items-start">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm text-gray-700 dark:text-gray-300">
+                                    New category <span
+                                        class="font-medium text-gray-900 dark:text-white">"Database"</span> was
+                                    added
+                                </p>
+                                <p class="text-xs text-gray-500 mt-1">2 days ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<%- include('/layouts/dashboard/footer') %>
