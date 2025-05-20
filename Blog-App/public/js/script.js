@@ -41,12 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("login-form");
   const registerForm = document.getElementById("register-form");
 
-  loginTab.addEventListener("click", () => {
+  // Fungsi switch tab
+  function switchToLogin(e) {
+    e.preventDefault();
     loginTab.classList.add(
-      "text-primary-600",
-      "dark:text-primary-500",
-      "border-primary-500",
-      "dark:border-primary-400"
+      "text-[#0284c7]",
+      "dark:text-[#0ea5e9]",
+      "border-[#0ea5e9]",
+      "dark:border-[#38bdf8]"
     );
     loginTab.classList.remove(
       "text-gray-500",
@@ -54,10 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
       "border-transparent"
     );
     registerTab.classList.remove(
-      "text-primary-600",
-      "dark:text-primary-500",
-      "border-primary-500",
-      "dark:border-primary-400"
+      "text-[#0284c7]",
+      "dark:text-[#0ea5e9]",
+      "border-[#0ea5e9]",
+      "dark:border-[#38bdf8]"
     );
     registerTab.classList.add(
       "text-gray-500",
@@ -66,14 +68,16 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     loginForm.classList.remove("hidden");
     registerForm.classList.add("hidden");
-  });
+    window.location.hash = "";
+  }
 
-  registerTab.addEventListener("click", () => {
+  function switchToRegister(e) {
+    e.preventDefault();
     registerTab.classList.add(
-      "text-primary-600",
-      "dark:text-primary-500",
-      "border-primary-500",
-      "dark:border-primary-400"
+      "text-[#0284c7]",
+      "dark:text-[#0ea5e9]",
+      "border-[#0ea5e9]",
+      "dark:border-[#38bdf8]"
     );
     registerTab.classList.remove(
       "text-gray-500",
@@ -81,10 +85,10 @@ document.addEventListener("DOMContentLoaded", function () {
       "border-transparent"
     );
     loginTab.classList.remove(
-      "text-primary-600",
-      "dark:text-primary-500",
-      "border-primary-500",
-      "dark:border-primary-400"
+      "text-[#0284c7]",
+      "dark:text-[#0ea5e9]",
+      "border-[#0ea5e9]",
+      "dark:border-[#38bdf8]"
     );
     loginTab.classList.add(
       "text-gray-500",
@@ -93,7 +97,17 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     registerForm.classList.remove("hidden");
     loginForm.classList.add("hidden");
-  });
+    window.location.hash = "register";
+  }
+
+  // Pasang event listener
+  loginTab.addEventListener("click", switchToLogin);
+  registerTab.addEventListener("click", switchToRegister);
+
+  // Cek hash URL saat load
+  if (window.location.hash === "#register") {
+    switchToRegister(new Event("click"));
+  }
 
   // Password visibility toggle
   const toggleLoginPassword = document.getElementById("toggle-login-password");
@@ -123,18 +137,5 @@ document.addEventListener("DOMContentLoaded", function () {
       type === "password"
         ? '<i class="fas fa-eye"></i>'
         : '<i class="fas fa-eye-slash"></i>';
-  });
-
-  // Form submission (you would replace this with actual form handling)
-  loginForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    // Add your login logic here
-    console.log("Login form submitted");
-  });
-
-  registerForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    // Add your registration logic here
-    console.log("Register form submitted");
   });
 });
