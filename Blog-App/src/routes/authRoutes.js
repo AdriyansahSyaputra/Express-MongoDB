@@ -3,7 +3,9 @@ const router = express.Router();
 const { register, login } = require("../controllers/authController");
 const {
   registerValidation,
-  validate,
+  validateRegister,
+  loginValidation,
+  validateLogin,
 } = require("../validators/authValidators");
 
 // Route Auth
@@ -13,6 +15,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.post("/register", registerValidation, validate, register);
-router.post("/login", login)
+router.post("/register", registerValidation, validateRegister, register);
+router.post("/login", loginValidation, validateLogin, login);
+
 module.exports = router;

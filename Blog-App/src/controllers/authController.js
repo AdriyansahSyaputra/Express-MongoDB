@@ -61,55 +61,64 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Cari user terlebih dahulu
+    // Login khusus admin (tanpa cek ke DB)
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const adminUser = {
+        _id: "admin-id",
+        email: process.env.ADMIN_EMAIL,
+        role: "admin",
+      };
+      const token = jwt.sign(
+        { id: adminUser._id, role: "admin" },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1d",
+        }
+      );
+
+      res.cookie("token", token, {
+        maxAge: 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+
+      req.flash("success", "Admin login successfully!");
+      return res.redirect("/dashboard");
+    }
+
+    // Login user biasa
     const user = await User.findOne({ email });
 
-    // Jika user tidak ditemukan
     if (!user) {
       req.flash("errors", { email: "User not found!" });
       req.flash("activeTab", "login");
       return res.redirect("/auth#login");
     }
 
-    // Loloskan login jika email admin@gmail.com dan password admin123
-    if (email === "admin@gmail.com" && password === "admin123") {
-      // Pastikan user admin ada di database
-      if (!user) {
-        req.flash("errors", { email: "Admin user not found!" });
-        req.flash("activeTab", "login");
-        return res.redirect("/auth#login");
-      }
-
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "1d",
-      });
-      res.cookie("token", token, {
-        maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: true,
-      });
-      req.flash("success", "Admin login successful!");
-      return res.redirect("/dashboard");
-    }
-
-    // Verifikasi password untuk user biasa
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      req.flash("errors", { password: "Invalid password!" });
+      req.flash("errors", { password: "Password is incorrect!" });
       req.flash("activeTab", "login");
       return res.redirect("/auth#login");
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { id: user._id, role: "user" },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     res.cookie("token", token, {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
 
-    req.flash("success", "Login successful!");
+    req.flash("success", "Login successfully!");
     return res.redirect("/");
   } catch (err) {
     console.error("Login error:", err);

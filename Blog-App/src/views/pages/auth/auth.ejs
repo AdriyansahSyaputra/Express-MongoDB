@@ -44,96 +44,118 @@
                 </button>
             </div>
 
-
             <!-- Login Form -->
-            <form id="login-form" class="mt-8 space-y-6 <%= activeTab === 'login' ? '' : 'hidden' %>" action="/auth/login"
-                method="POST">
-                <input type="hidden" name="remember" value="true">
-                <div class="rounded-md shadow-sm space-y-4">
-                    <div>
-                        <label for="email" class="sr-only">Email address</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-envelope text-gray-400"></i>
+            <form id="login-form" class="mt-8 space-y-6 <%= activeTab === 'login' ? '' : 'hidden' %>"
+                action="/auth/login" method="POST">
+
+                <!-- Error Messages -->
+                <% if (Object.keys(errors).length> 0) { %>
+                    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900 dark:text-red-100">
+                        <% Object.values(errors).forEach(error=> { %>
+                            <p>
+                                <%= error %>
+                            </p>
+                            <% }) %>
+                    </div>
+                    <% } %>
+
+                        <input type="hidden" name="remember" value="true">
+                        <div class="rounded-md shadow-sm space-y-4">
+                            <div>
+                                <label for="email" class="sr-only">Email address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-envelope text-gray-400"></i>
+                                    </div>
+                                    <input id="login-email" name="email" type="email" autocomplete="email" required
+                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
+                                        placeholder="Email address">
+                                </div>
+                                <% if (errors.email) { %>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                        <%= errors.email %>
+                                    </p>
+                                    <% } %>
                             </div>
-                            <input id="login-email" name="email" type="email" autocomplete="email" required
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
-                                placeholder="Email address">
+                            <div>
+                                <label for="password" class="sr-only">Password</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-lock text-gray-400"></i>
+                                    </div>
+                                    <input id="login-password" name="password" type="password"
+                                        autocomplete="current-password" required
+                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
+                                        placeholder="Password">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button type="button"
+                                            class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                                            id="toggle-login-password">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <% if (errors.password) { %>
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                        <%= errors.password %>
+                                    </p>
+                                    <% } %>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <label for="password" class="sr-only">Password</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-lock text-gray-400"></i>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input id="remember-me" name="remember-me" type="checkbox"
+                                    class="h-4 w-4 text-[#0284c7] dark:text-[#0ea5e9] focus:ring-[#0ea5e9] dark:focus:ring-[#38bdf8] border-gray-300 dark:border-gray-600 rounded">
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                    Remember me
+                                </label>
                             </div>
-                            <input id="login-password" name="password" type="password" autocomplete="current-password"
-                                required
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
-                                placeholder="Password">
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <button type="button" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
-                                    id="toggle-login-password">
-                                    <i class="fas fa-eye"></i>
-                                </button>
+
+                            <div class="text-sm">
+                                <a href="#"
+                                    class="font-medium text-[#0284c7] dark:text-[#38bdf8] hover:text-[#0ea5e9] dark:hover:text-[#7dd3fc]">
+                                    Forgot your password?
+                                </a>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox"
-                            class="h-4 w-4 text-[#0284c7] dark:text-[#0ea5e9] focus:ring-[#0ea5e9] dark:focus:ring-[#38bdf8] border-gray-300 dark:border-gray-600 rounded">
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                            Remember me
-                        </label>
-                    </div>
+                        <div>
+                            <button type="submit"
+                                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#0284c7] dark:bg-[#0ea5e9] hover:bg-[#0369a1] dark:hover:bg-[#0284c7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0ea5e9] dark:focus:ring-[#38bdf8] transition-colors">
+                                <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                                    <i
+                                        class="fas fa-sign-in-alt text-[#bae6fd] dark:text-[#7dd3fc] group-hover:text-[#e0f2fe]"></i>
+                                </span>
+                                Sign in
+                            </button>
+                        </div>
 
-                    <div class="text-sm">
-                        <a href="#"
-                            class="font-medium text-[#0284c7] dark:text-[#38bdf8] hover:text-[#0ea5e9] dark:hover:text-[#7dd3fc]">
-                            Forgot your password?
-                        </a>
-                    </div>
-                </div>
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                                    Or continue with
+                                </span>
+                            </div>
+                        </div>
 
-                <div>
-                    <button type="submit"
-                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#0284c7] dark:bg-[#0ea5e9] hover:bg-[#0369a1] dark:hover:bg-[#0284c7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0ea5e9] dark:focus:ring-[#38bdf8] transition-colors">
-                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                            <i
-                                class="fas fa-sign-in-alt text-[#bae6fd] dark:text-[#7dd3fc] group-hover:text-[#e0f2fe]"></i>
-                        </span>
-                        Sign in
-                    </button>
-                </div>
-
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
-                            Or continue with
-                        </span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-3 gap-3">
-                    <a href="#"
-                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fab fa-google text-red-500"></i>
-                    </a>
-                    <a href="#"
-                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="#"
-                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fab fa-twitter text-blue-400"></i>
-                    </a>
-                </div>
+                        <div class="grid grid-cols-3 gap-3">
+                            <a href="#"
+                                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                <i class="fab fa-google text-red-500"></i>
+                            </a>
+                            <a href="#"
+                                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#"
+                                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                <i class="fab fa-twitter text-blue-400"></i>
+                            </a>
+                        </div>
             </form>
 
             <!-- Register Form (Hidden by default) -->
@@ -150,129 +172,148 @@
                     </div>
                     <% } %>
 
-                        <div class="rounded-md shadow-sm space-y-4">
-                            <div>
-                                <label for="name" class="sr-only">Full Name</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-user text-gray-400"></i>
-                                    </div>
-                                    <input id="name" name="name" type="text" autocomplete="name" required
-                                        value="<%= old.name || '' %>"
-                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
-                                        placeholder="Full Name">
-                                </div>
-                                <% if (errors && errors.name) { %>
-                                    <p class="text-red-500 text-xs mt-1">
-                                        <%= errors.name %>
-                                    </p>
-                                    <% } %>
+                        <% if (Object.keys(errors).length> 0) { %>
+                            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
+                                <ul>
+                                    <% Object.values(errors).forEach(error=> { %>
+                                        <li>
+                                            <%= error %>
+                                        </li>
+                                        <% }) %>
+                                </ul>
                             </div>
-                            <div>
-                                <label for="email" class="sr-only">Email address</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-envelope text-gray-400"></i>
-                                    </div>
-                                    <input id="register-email" name="email" type="email" autocomplete="email" required
-                                        value="<%= old.email || '' %>"
-                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
-                                        placeholder="Email address">
-                                </div>
-                                <% if (errors && errors.email) { %>
-                                    <p class="text-red-500 text-xs mt-1">
-                                        <%= errors.email %>
-                                    </p>
-                                    <% } %>
-                            </div>
-                            <div>
-                                <label for="phone" class="sr-only"></label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-phone text-gray-400"></i>
-                                    </div>
-                                    <input type="tel" id="phone" name="phone" placeholder="Phone Number"
-                                        value="<%= old.phone || '' %>"
-                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
-                                        required>
-                                </div>
-                                <% if (errors && errors.phone) { %>
-                                    <p class="text-red-500 text-xs mt-1">
-                                        <%= errors.phone %>
-                                    </p>
-                                    <% } %>
-                            </div>
-                            <div>
-                                <label for="password" class="sr-only">Password</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-lock text-gray-400"></i>
-                                    </div>
-                                    <input id="register-password" name="password" type="password"
-                                        autocomplete="new-password" required
-                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
-                                        placeholder="Password">
-                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                        <button type="button"
-                                            class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
-                                            id="toggle-register-password">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
-                                    <% if (errors && errors.password) { %>
-                                        <p class="text-red-500 text-xs mt-1">
-                                            <%= errors.password %>
-                                        </p>
-                                        <% } %>
-                                </div>
-                            </div>
-                            <div>
-                                <label for="confirm-password" class="sr-only">Confirm Password</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-lock text-gray-400"></i>
-                                    </div>
-                                    <input id="confirm-password" name="confirm-password" type="password"
-                                        autocomplete="new-password" required
-                                        class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
-                                        placeholder="Confirm Password">
-                                </div>
-                                <% if (errors && errors['confirm[password]']) { %>
-                                    <p class="text-red-500 text-xs mt-1">
-                                        <%= errors['confirm[password]'] %>
-                                    </p>
-                                    <% } %>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center">
-                            <input id="terms" name="terms" type="checkbox" <%=old.terms ? 'checked' : '' %>
-                            class="h-4 w-4 text-[#0284c7] dark:text-[#0ea5e9] focus:ring-[#0ea5e9]
-                            dark:focus:ring-[#38bdf8] border-gray-300 dark:border-gray-600 rounded">
-                            <label for="terms" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                                I agree to the <a href="#"
-                                    class="text-[#0284c7] dark:text-[#38bdf8] hover:text-[#0ea5e9] dark:hover:text-[#7dd3fc]">Terms</a>
-                                and <a href="#"
-                                    class="text-[#0284c7] dark:text-[#38bdf8] hover:text-[#0ea5e9] dark:hover:text-[#7dd3fc]">Privacy
-                                    Policy</a>
-                            </label>
-                        </div>
-                        <% if (errors && errors.terms) { %>
-                            <p class="text-red-500 text-xs mt-1">
-                                <%= errors.terms %>
-                            </p>
                             <% } %>
 
-                                <div>
-                                    <button type="submit"
-                                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#0284c7] dark:bg-[#0ea5e9] hover:bg-[#0369a1] dark:hover:bg-[#0284c7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0ea5e9] dark:focus:ring-[#38bdf8] transition-colors">
-                                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                                            <i
-                                                class="fas fa-user-plus text-[#bae6fd] dark:text-[#7dd3fc] group-hover:text-[#e0f2fe]"></i>
-                                        </span>
-                                        Create Account
-                                    </button>
+                                <div class="rounded-md shadow-sm space-y-4">
+                                    <div>
+                                        <label for="name" class="sr-only">Full Name</label>
+                                        <div class="relative">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-user text-gray-400"></i>
+                                            </div>
+                                            <input id="name" name="name" type="text" autocomplete="name" required
+                                                value="<%= old.name || '' %>"
+                                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
+                                                placeholder="Full Name">
+                                        </div>
+                                        <% if (errors.name) { %>
+                                            <p class="text-red-500 text-xs mt-1">
+                                                <%= errors.name %>
+                                            </p>
+                                            <% } %>
+                                    </div>
+                                    <div>
+                                        <label for="email" class="sr-only">Email address</label>
+                                        <div class="relative">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-gray-400"></i>
+                                            </div>
+                                            <input id="register-email" name="email" type="email" autocomplete="email"
+                                                required value="<%= old.email || '' %>"
+                                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
+                                                placeholder="Email address">
+                                        </div>
+                                        <% if (errors.email) { %>
+                                            <p class="text-red-500 text-xs mt-1">
+                                                <%= errors.email %>
+                                            </p>
+                                            <% } %>
+                                    </div>
+                                    <div>
+                                        <label for="phone" class="sr-only"></label>
+                                        <div class="relative">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-phone text-gray-400"></i>
+                                            </div>
+                                            <input type="tel" id="phone" name="phone" placeholder="Phone Number"
+                                                value="<%= old.phone || '' %>"
+                                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
+                                                required>
+                                        </div>
+                                        <% if (errors.phone) { %>
+                                            <p class="text-red-500 text-xs mt-1">
+                                                <%= errors.phone %>
+                                            </p>
+                                            <% } %>
+                                    </div>
+                                    <div>
+                                        <label for="password" class="sr-only">Password</label>
+                                        <div class="relative">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-gray-400"></i>
+                                            </div>
+                                            <input id="register-password" name="password" type="password"
+                                                autocomplete="new-password" required
+                                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
+                                                placeholder="Password">
+                                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                                <button type="button"
+                                                    class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                                                    id="toggle-register-password">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                            <% if (errors.password) { %>
+                                                <p class="text-red-500 text-xs mt-1">
+                                                    <%= errors.password %>
+                                                </p>
+                                                <% } %>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="confirm-password" class="sr-only">Confirm Password</label>
+                                        <div class="relative">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-gray-400"></i>
+                                            </div>
+                                            <input id="confirm-password" name="confirmPassword" type="password"
+                                                autocomplete="new-password" required
+                                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-[#0ea5e9] focus:border-[#0ea5e9] dark:focus:ring-[#38bdf8] dark:focus:border-[#38bdf8]"
+                                                placeholder="Confirm Password">
+                                        </div>
+                                        <% if (errors.confirmPassword) { %>
+                                            <p class="text-red-500 text-xs mt-1">
+                                                <%= errors.confirmPassword %>
+                                            </p>
+                                            <% } %>
+
+                                    </div>
                                 </div>
+
+                                <div class="flex items-center">
+                                    <input id="terms" name="terms" type="checkbox" value="on" <%=old.terms==='on'
+                                        ? 'checked' : '' %>
+                                    class="h-4 w-4 text-[#0284c7] dark:text-[#0ea5e9] focus:ring-[#0ea5e9]
+                                    dark:focus:ring-[#38bdf8] border-gray-300 dark:border-gray-600 rounded">
+                                    <label for="terms" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                        I agree to the <a href="#"
+                                            class="text-[#0284c7] dark:text-[#38bdf8] hover:text-[#0ea5e9] dark:hover:text-[#7dd3fc]">Terms</a>
+                                        and <a href="#"
+                                            class="text-[#0284c7] dark:text-[#38bdf8] hover:text-[#0ea5e9] dark:hover:text-[#7dd3fc]">Privacy
+                                            Policy</a>
+                                    </label>
+                                </div>
+                                <% if (errors.terms) { %>
+                                    <p class="text-red-500 text-xs mt-1">
+                                        <%= errors.terms %>
+                                    </p>
+                                    <% } %>
+
+                                        <div>
+                                            <button type="submit"
+                                                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#0284c7] dark:bg-[#0ea5e9] hover:bg-[#0369a1] dark:hover:bg-[#0284c7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0ea5e9] dark:focus:ring-[#38bdf8] transition-colors">
+                                                <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                                                    <i
+                                                        class="fas fa-user-plus text-[#bae6fd] dark:text-[#7dd3fc] group-hover:text-[#e0f2fe]"></i>
+                                                </span>
+                                                Create Account
+                                            </button>
+                                        </div>
             </form>
         </div>
     </div>

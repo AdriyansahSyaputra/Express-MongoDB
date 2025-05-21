@@ -4,6 +4,9 @@ const registerValidation = [
   body("name")
     .isLength({ min: 7 })
     .withMessage("Name must be at least 7 characters long")
+    .bail()
+    .matches(/^[a-zA-Z\s]+$/)
+    .withMessage("Name must contain only letters and spaces")
     .trim(),
 
   body("email").isEmail().withMessage("Invalid email address").normalizeEmail(),
@@ -14,56 +17,72 @@ const registerValidation = [
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long"),
 
-  // PERBAIKAN: Format field menggunakan "confirm[password]" di alih-alih "confirm-password"
-  body("confirm-password").custom((value, { req }) => {
+  body("confirmPassword").custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error("Password confirmation does not match password");
     }
     return true;
   }),
 
-  body("terms").custom((value) => {
-    // PERBAIKAN: Periksa nilai terms dengan benar
-    if (!value) {
-      throw new Error("You must agree to the terms and conditions");
-    }
-    return true;
-  }),
+  body("terms")
+    .exists()
+    .withMessage("You must agree to the terms")
+    .equals("on")
+    .withMessage("You must agree to the terms"),
 ];
 
-const validate = (req, res, next) => {
+const validateRegister = (req, res, next) => {
   const errors = validationResult(req);
-  if (errors.isEmpty()) {
-    return next();
+  if (!errors.isEmpty()) {
+    const errorMessages = {};
+    errors.array().forEach((err) => {
+      errorMessages[err.param] = err.msg;
+    });
+
+    req.flash("errors", errorMessages);
+    req.flash("old", req.body);
+    req.flash("activeTab", "register");
+    return res.redirect("/auth#register");
   }
 
-  // Untuk debugging - PENTING
-  console.log("Validation errors raw:", errors.array());
+  next();
+};
 
-  // PERBAIKAN: Format error yang sesuai dengan EJS template
-  const extractedErrors = {};
+const loginValidation = [
+  body("email")
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Invalid email format")
+    .normalizeEmail(),
 
-  errors.array().forEach((err) => {
-    if (err.param === "confirm-password") {
-      // PENTING: Ubah nama field untuk confirm password
-      extractedErrors["confirm[password]"] = err.msg;
-    } else {
-      extractedErrors[err.param] = err.msg;
-    }
-  });
+  body("password")
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters"),
+];
 
-  console.log("Formatted errors for view:", extractedErrors);
+const validateLogin = (req, res, next) => {
+  const errors = validationResult(req);
 
-  // Teruskan error ke flash
-  req.flash("errors", extractedErrors);
-  req.flash("old", req.body);
-  req.flash("activeTab", "register");
+  if (!errors.isEmpty()) {
+    const errorMessages = {};
+    errors.array().forEach((error) => {
+      errorMessages[error.param] = error.msg;
+    });
 
-  // Redirect kembali ke halaman auth dengan fragment register
-  return res.redirect("/auth#register");
+    req.flash("errors", errorMessages);
+    req.flash("old", req.body);
+    return res.redirect("/auth#login");
+  }
+
+  next();
 };
 
 module.exports = {
   registerValidation,
-  validate,
+  validateRegister,
+  loginValidation,
+  validateLogin,
 };

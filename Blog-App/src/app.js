@@ -41,6 +41,7 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 },
   })
 );
 app.use(flash());
@@ -48,30 +49,19 @@ app.use(flash());
 // Middleware untuk menyediakan flash messages ke semua views - PERBAIKAN
 app.use((req, res, next) => {
   // PENTING: Pastikan errors adalah objek, bukan string atau array
-  const errors = req.flash('errors')[0] || {};
-  const old = req.flash('old')[0] || {};
-  const activeTab = req.flash('activeTab')[0] || 'login';
-  const success = req.flash('success')[0];
-  
+  const errors = req.flash("errors")[0] || {};
+  const old = req.flash("old")[0] || {};
+  const activeTab = req.flash("activeTab")[0] || "login";
+  const success = req.flash("success")[0];
+
   // Mengisi res.locals untuk digunakan di semua views
   res.locals.success = success;
   res.locals.errors = errors;
   res.locals.old = old;
   res.locals.activeTab = activeTab;
-  
-  // Debug logs - penting untuk melihat data yang diteruskan ke view
-  if (Object.keys(errors).length > 0 || success) {
-    console.log("======= DEBUG FLASH MESSAGES =======");
-    console.log("Success:", success);
-    console.log("Errors:", errors);
-    console.log("Old data:", old);
-    console.log("Active Tab:", activeTab);
-    console.log("====================================");
-  }
-  
+
   next();
 });
-
 
 // Routes
 app.use("/", clientRoutes);
