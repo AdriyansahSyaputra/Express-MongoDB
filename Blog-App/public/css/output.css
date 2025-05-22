@@ -960,6 +960,9 @@
   .border-indigo-600 {
     border-color: var(--color-indigo-600);
   }
+  .border-red-500 {
+    border-color: var(--color-red-500);
+  }
   .border-transparent {
     border-color: transparent;
   }
@@ -1902,13 +1905,6 @@
       }
     }
   }
-  .hover\:text-gray-900 {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-gray-900);
-      }
-    }
-  }
   .hover\:text-green-900 {
     &:hover {
       @media (hover: hover) {
@@ -2661,15 +2657,6 @@
       &:hover {
         @media (hover: hover) {
           color: var(--color-red-300);
-        }
-      }
-    }
-  }
-  .dark\:hover\:text-white {
-    @media (prefers-color-scheme: dark) {
-      &:hover {
-        @media (hover: hover) {
-          color: var(--color-white);
         }
       }
     }

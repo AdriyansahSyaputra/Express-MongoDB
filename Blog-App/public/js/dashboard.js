@@ -83,6 +83,8 @@ window.addEventListener("resize", handleResize);
 handleResize(); // Run on initial load
 
 // Initialize CKEditor
+let editor;
+
 ClassicEditor.create(document.querySelector("#editor"), {
   toolbar: {
     items: [
@@ -104,12 +106,17 @@ ClassicEditor.create(document.querySelector("#editor"), {
     ],
   },
 })
-  .then((editor) => {
-    window.editor = editor;
+  .then((newEditor) => {
+    editor = newEditor;
+    window.editor = newEditor; // Untuk akses global
   })
   .catch((error) => {
     console.error("Editor initialization error:", error);
   });
+
+document.getElementById("post-form").addEventListener("submit", function () {
+  document.getElementById("editor-content").value = editor.getData();
+});
 
 // Featured Image Handling
 const imageUploadContainer = document.getElementById("image-upload-container");
@@ -205,34 +212,72 @@ function handleDrop(e) {
 }
 
 // Tag Handling
-const tagInput = document.getElementById('tag-input');
-const addTagBtn = document.getElementById('add-tag-btn');
-const tagsContainer = document.getElementById('tags-container');
+const tagInput = document.getElementById("tag-input");
+const addTagBtn = document.getElementById("add-tag-btn");
+const tagsContainer = document.getElementById("tags-container");
+const form = document.querySelector("post-form");
 
-addTagBtn.addEventListener('click', addTag);
-tagInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        addTag();
-    }
+addTagBtn.addEventListener("click", addTag);
+tagInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    addTag();
+  }
 });
 
-function addTag() {
-    const tagText = tagInput.value.trim();
-    if (tagText) {
-        const tagElement = document.createElement('div');
-        tagElement.className = 'flex items-center bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-sm';
-        tagElement.innerHTML = `
+// Buat input hidden untuk tags
+const hiddenTagsInput = document.createElement("input");
+hiddenTagsInput.type = "hidden";
+hiddenTagsInput.name = "tags";
+form.appendChild(hiddenTagsInput);
+
+function updateHiddenTags() {
+  const tags = Array.from(tagsContainer.querySelectorAll("span")).map(
+    (span) => span.textContent
+  );
+  hiddenTagsInput.value = JSON.stringify(tags);
+}
+
+function addTag(e) {
+  e.preventDefault();
+  const tagText = tagInput.value.trim();
+  if (tagText) {
+    const tagElement = document.createElement("div");
+    tagElement.className =
+      "flex items-center bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-sm";
+    tagElement.innerHTML = `
             <span class="text-gray-700 dark:text-gray-300">${tagText}</span>
-            <button class="ml-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+            <button id="remove-tag-btn" class="ml-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
                 <i class="fas fa-times text-xs"></i>
             </button>
         `;
-        
-        tagElement.querySelector('button').addEventListener('click', () => {
-            tagElement.remove();
-        });
-        
-        tagsContainer.appendChild(tagElement);
-        tagInput.value = '';
-    }
+
+    tagElement
+      .querySelector("#remove-tag-btn")
+      .addEventListener("click", () => {
+        tagElement.remove();
+      });
+
+    tagsContainer.appendChild(tagElement);
+    tagInput.value = "";
+  }
 }
+
+document.querySelector(".btn-publish").addEventListener("click", async () => {
+  const form = document.getElementById("post-form");
+  const formData = new FormData(form);
+
+  formData.append("tags", JSON.stringify(tags)); // tags dari array JS
+  formData.append("content", CKEDITOR.instances.editor.getData()); // CKEditor5 atau sesuaikan
+
+  const response = await fetch("/dashboard/posts/new", {
+    method: "POST",
+    body: formData,
+  });
+
+  const result = await response.json();
+  if (!response.ok) {
+    alert(result.errors.map((err) => err.msg).join("\n"));
+  } else {
+    alert("Post berhasil dibuat!");
+  }
+});
