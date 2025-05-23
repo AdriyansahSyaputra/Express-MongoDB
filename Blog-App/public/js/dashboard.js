@@ -259,6 +259,13 @@ function addTag(e) {
 
     tagsContainer.appendChild(tagElement);
     tagInput.value = "";
+
+    // Debug 1: Lihat tag yang baru ditambahkan
+    console.log("Tag added:", tagText);
+
+    // Debug 2: Lihat semua tags saat ini
+    updateHiddenTags();
+    console.log("All tags:", hiddenTagsInput.value);
   }
 }
 

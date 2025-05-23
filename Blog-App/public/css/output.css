@@ -960,9 +960,6 @@
   .border-indigo-600 {
     border-color: var(--color-indigo-600);
   }
-  .border-red-500 {
-    border-color: var(--color-red-500);
-  }
   .border-transparent {
     border-color: transparent;
   }

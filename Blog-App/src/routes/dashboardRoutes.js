@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { createPost, fetchCategories } = require("../controllers/postController");
 const upload = require("../middlewares/upload");
+const auth = require("../middlewares/auth");
 
 router.get("/", (req, res) => {
     res.render("./pages/dashboard/home", { title: "Home" });
@@ -17,7 +18,7 @@ router.get("/posts/new", async (req, res) => {
     res.render("./pages/dashboard/add-post", { title: "Add Post", categories });
 })
 
-router.post("/posts/new", upload.single("featuredImage"), createPost);
+router.post("/posts/new", upload.single("featuredImage"),auth, createPost);
 
 router.get("/posts/edit", (req, res) => {
     res.render("./pages/dashboard/edit-post", { title: "Edit Post" });

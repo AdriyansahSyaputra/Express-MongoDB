@@ -43,18 +43,32 @@ const createPostValidator = [
     }),
 
   body("tags")
-    .isArray()
-    .withMessage("Tags must be an array")
-    .custom((tags) => {
-      if (tags) {
-        for (const tag of tags) {
-          if (typeof tag !== "string" || tag.length > 20) {
-            throw new Error(
-              "Each tag must be a string and at most 20 characters long"
-            );
-          }
+    .optional()
+    .custom((value) => {
+      // Jika value adalah string, coba parse dulu
+      let tagsArray = value;
+      if (typeof value === "string") {
+        try {
+          tagsArray = JSON.parse(value);
+        } catch (err) {
+          throw new Error("Invalid tags format");
         }
       }
+
+      // Pastikan hasilnya adalah array
+      if (!Array.isArray(tagsArray)) {
+        throw new Error("Tags must be an array");
+      }
+
+      // Validasi individual tags
+      for (const tag of tagsArray) {
+        if (typeof tag !== "string" || tag.length > 20) {
+          throw new Error(
+            "Each tag must be a string and at most 20 characters long"
+          );
+        }
+      }
+
       return true;
     }),
 

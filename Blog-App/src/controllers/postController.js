@@ -23,12 +23,16 @@ const createPost = async (req, res) => {
         featuredImage,
       } = req.body;
 
-      // Parse tags dari JSON string
+      // Parse tags (handle berbagai kemungkinan format)
       let parsedTags = [];
-      try {
-        parsedTags = tags ? JSON.parse(tags) : [];
-      } catch (err) {
-        console.error("Error parsing tags:", err);
+      if (typeof tags === "string") {
+        try {
+          parsedTags = JSON.parse(tags);
+        } catch (err) {
+          parsedTags = tags.split(",").map((t) => t.trim());
+        }
+      } else if (Array.isArray(tags)) {
+        parsedTags = [...tags];
       }
 
       // Buat post baru
@@ -53,7 +57,7 @@ const createPost = async (req, res) => {
       });
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       msg: err.message,
     });
