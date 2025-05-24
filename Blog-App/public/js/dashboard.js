@@ -212,68 +212,69 @@ function handleDrop(e) {
 }
 
 // Tag Handling
+const tags = [];
 const tagInput = document.getElementById("tag-input");
-const addTagBtn = document.getElementById("add-tag-btn");
 const tagsContainer = document.getElementById("tags-container");
-const form = document.querySelector("post-form");
+const hiddenTagsInput = document.getElementById("hidden-tags");
+const form = document.getElementById("post-form");
 
-addTagBtn.addEventListener("click", addTag);
-tagInput.addEventListener("keypress", function (e) {
+// Tombol "Add" secara manual
+document.getElementById("add-tag-btn").addEventListener("click", () => {
+  addTag();
+});
+
+// Fungsi menambahkan tag
+function addTag() {
+  const tagValue = tagInput.value.trim();
+  if (tagValue && !tags.includes(tagValue)) {
+    tags.push(tagValue);
+    updateTagsDisplay();
+  }
+  tagInput.value = "";
+}
+
+// Tangani saat tekan ENTER di input tag
+tagInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
+    e.preventDefault(); // Hindari form submit langsung
     addTag();
+
+    // Jika kamu ingin submit form setelah tag dimasukkan:
+    // form.submit(); // <- Aktifkan jika ingin langsung submit
   }
 });
 
-// Buat input hidden untuk tags
-const hiddenTagsInput = document.createElement("input");
-hiddenTagsInput.type = "hidden";
-hiddenTagsInput.name = "tags";
-form.appendChild(hiddenTagsInput);
+// Update tampilan tag & input hidden
+function updateTagsDisplay() {
+  tagsContainer.innerHTML = "";
+  tags.forEach((tag, index) => {
+    const tagEl = document.createElement("span");
+    tagEl.className =
+      "inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded";
+    tagEl.innerHTML = `#${tag} <button type="button" onclick="removeTag(${index})">x</button>`;
+    tagsContainer.appendChild(tagEl);
+  });
 
-function updateHiddenTags() {
-  const tags = Array.from(tagsContainer.querySelectorAll("span")).map(
-    (span) => span.textContent
-  );
   hiddenTagsInput.value = JSON.stringify(tags);
 }
 
-function addTag(e) {
-  e.preventDefault();
-  const tagText = tagInput.value.trim();
-  if (tagText) {
-    const tagElement = document.createElement("div");
-    tagElement.className =
-      "flex items-center bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-sm";
-    tagElement.innerHTML = `
-            <span class="text-gray-700 dark:text-gray-300">${tagText}</span>
-            <button id="remove-tag-btn" class="ml-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-                <i class="fas fa-times text-xs"></i>
-            </button>
-        `;
-
-    tagElement
-      .querySelector("#remove-tag-btn")
-      .addEventListener("click", () => {
-        tagElement.remove();
-      });
-
-    tagsContainer.appendChild(tagElement);
-    tagInput.value = "";
-
-    // Debug 1: Lihat tag yang baru ditambahkan
-    console.log("Tag added:", tagText);
-
-    // Debug 2: Lihat semua tags saat ini
-    updateHiddenTags();
-    console.log("All tags:", hiddenTagsInput.value);
-  }
+// Hapus tag
+function removeTag(index) {
+  tags.splice(index, 1);
+  updateTagsDisplay();
 }
+
+// Limitasi panjang excerpt
+const excerptInput = document.querySelector('textarea[name="excerpt"]');
+if (excerptInput && excerptInput.value.length > 160) {
+  excerptInput.value = excerptInput.value.slice(0, 160);
+}
+
 
 document.querySelector(".btn-publish").addEventListener("click", async () => {
   const form = document.getElementById("post-form");
   const formData = new FormData(form);
 
-  formData.append("tags", JSON.stringify(tags)); // tags dari array JS
   formData.append("content", CKEDITOR.instances.editor.getData()); // CKEditor5 atau sesuaikan
 
   const response = await fetch("/dashboard/posts/new", {

@@ -60,7 +60,7 @@ const postSchema = new mongoose.Schema(
 // Generate slug sebelum save
 postSchema.pre("save", function (next) {
   if (!this.slug) {
-    this.slug = slugify(this.title);
+    this.slug = slugify(this.title, { lower: true, strict: true });
   }
   if (this.status === "published" && !this.publishedAt) {
     this.publishedAt = new Date();

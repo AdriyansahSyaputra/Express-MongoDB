@@ -13,15 +13,7 @@ const createPost = async (req, res) => {
     );
 
     validate(req, res, async () => {
-      const {
-        title,
-        content,
-        excerpt,
-        categories,
-        tags,
-        status,
-        featuredImage,
-      } = req.body;
+      const { title, content, excerpt, categories, tags, status } = req.body;
 
       // Parse tags (handle berbagai kemungkinan format)
       let parsedTags = [];
@@ -43,7 +35,7 @@ const createPost = async (req, res) => {
         categories,
         tags: parsedTags.map((tag) => tag.trim().toLowerCase()),
         status: status || "draft",
-        featuredImage,
+        featuredImage: req.file ? req.file.filename : null,
         author: req.user._id,
       });
 
@@ -64,32 +56,15 @@ const createPost = async (req, res) => {
   }
 };
 
-const getCategories = async (req, res) => {
-  try {
-    const categories = await Category.find();
-    res.status(200).json({
-      success: true,
-      data: categories,
-    });
-  } catch (err) {
-    res.status(400).json({
-      success: false,
-      msg: err.message,
-    });
-  }
-};
-
 const fetchCategories = async () => {
   try {
     return await Category.find().lean();
   } catch (err) {
-    console.error("Error fetching categories:", err);
     return [];
   }
 };
 
 module.exports = {
   createPost,
-  getCategories,
   fetchCategories,
 };
