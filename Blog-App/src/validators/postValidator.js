@@ -32,15 +32,21 @@ const createPostValidator = [
 
   body("categories")
     .customSanitizer((value) => {
+      if (!value) return [];
       return Array.isArray(value) ? value : [value];
     })
-    .isArray()
-    .withMessage("Categories must be an array")
+    .custom((categories) => {
+      if (!categories || categories.length === 0) {
+        throw new Error("At least one category must be selected");
+      }
+      return true;
+    })
     .custom(async (categories) => {
       const found = await Category.find({ _id: { $in: categories } });
       if (found.length !== categories.length) {
         throw new Error("One or more categories not found");
       }
+      return true;
     }),
 
   body("categories.*")
@@ -102,8 +108,13 @@ const createPostValidator = [
 
 const validate = (req, res, next) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    // Hapus file jika ada
+  const customErrors = req.validationErrors || [];
+
+  // Gabungkan errors dari express-validator dan custom errors
+  const allErrors = [...errors.array(), ...customErrors];
+
+  if (allErrors.length > 0) {
+    // Hapus file jika ada error
     if (req.file) {
       const filePath = path.join(
         __dirname,
@@ -115,13 +126,23 @@ const validate = (req, res, next) => {
       });
     }
 
-    return res.status(400).json({
-      success: false,
-      errors: errors.array().map((err) => ({
-        field: err.param,
-        msg: err.msg,
-      })),
+    // Mapping errors berdasarkan field
+    const mappedErrors = {};
+    allErrors.forEach((err) => {
+      const field = err.path || err.param;
+      if (!mappedErrors[field]) {
+        mappedErrors[field] = err.msg;
+      }
     });
+
+    // console.log("Mapped Errors:", mappedErrors); // Debug log
+    // console.log("Request Body:", req.body); // Debug log
+
+    // Set flash messages
+    req.flash("errors", mappedErrors);
+    req.flash("old", req.body);
+
+    return res.redirect("/dashboard/posts/new");
   }
 
   next();

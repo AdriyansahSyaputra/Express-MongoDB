@@ -46,19 +46,20 @@ app.use(
 );
 app.use(flash());
 
-// Middleware untuk menyediakan flash messages ke semua views - PERBAIKAN
+// Middleware untuk menyediakan flash messages ke semua views
 app.use((req, res, next) => {
-  // PENTING: Pastikan errors adalah objek, bukan string atau array
-  const errors = req.flash("errors")[0] || {};
-  const old = req.flash("old")[0] || {};
-  const activeTab = req.flash("activeTab")[0] || "login";
-  const success = req.flash("success")[0];
+  // Ambil flash messages
+  const flashErrors = req.flash("errors");
+  const flashOld = req.flash("old");
+  const flashSuccess = req.flash("success");
+  const flashActiveTab = req.flash("activeTab");
 
-  // Mengisi res.locals untuk digunakan di semua views
-  res.locals.success = success;
-  res.locals.errors = errors;
-  res.locals.old = old;
-  res.locals.activeTab = activeTab;
+  // Set ke res.locals - pastikan errors adalah objek
+  res.locals.errors = flashErrors.length > 0 ? flashErrors[0] : {};
+  res.locals.old = flashOld.length > 0 ? flashOld[0] : {};
+  res.locals.success = flashSuccess.length > 0 ? flashSuccess[0] : null;
+  res.locals.activeTab =
+    flashActiveTab.length > 0 ? flashActiveTab[0] : "login";
 
   next();
 });
