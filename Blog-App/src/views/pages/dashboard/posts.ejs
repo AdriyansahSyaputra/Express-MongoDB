@@ -90,38 +90,37 @@
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         <!-- Published Post -->
+                        <% posts.forEach(post => { %>
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div
                                         class="flex-shrink-0 h-10 w-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-file-alt text-blue-600 dark:text-blue-400"></i>
+                                        <img src="/img/uploads/<%= post.featuredImage %>" alt="<%= post.title %>" class="w-full h-full object-cover">
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900 dark:text-white">Getting Started
-                                            with Node.js</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">nodejs, backend</div>
+                                        <div class="text-sm font-medium text-gray-900 dark:text-white"><%= limitWords(post.title, 5) %></div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400"><%= post.tags.join(', ') %></div>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900 dark:text-white">Admin</div>
+                                <div class="text-sm text-gray-900 dark:text-white"><%= post.author.name %></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Web
-                                    Development</span>
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"><%= post.categories.map(c=> c.name).join(', ') %></span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Published</span>
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"><%= post.status %></span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                May 15, 2023
+                                <%= post.formattedDate %>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end space-x-2">
-                                    <a href="#"
+                                    <a href="/dashboard/posts/<%= post._id %>/edit"
                                         class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300">
                                         <i class="fas fa-edit"></i>
                                     </a>
@@ -129,156 +128,16 @@
                                         class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="#"
-                                        class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                                    <form action="/dashboard/posts/<%= post._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Yakin ingin menghapus postingan ini?')">
+                                        <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    
                                 </div>
                             </td>
                         </tr>
-
-                        <!-- Draft Post -->
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div
-                                        class="flex-shrink-0 h-10 w-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-file-alt text-blue-600 dark:text-blue-400"></i>
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900 dark:text-white">Express.js Best
-                                            Practices</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">express, nodejs</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900 dark:text-white">Admin</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Web
-                                    Development</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">Draft</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                May 10, 2023
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex justify-end space-x-2">
-                                    <a href="#"
-                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="#"
-                                        class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="#"
-                                        class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Scheduled Post -->
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div
-                                        class="flex-shrink-0 h-10 w-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-file-alt text-blue-600 dark:text-blue-400"></i>
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900 dark:text-white">Building RESTful
-                                            APIs</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">api, nodejs</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900 dark:text-white">Admin</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Web
-                                    Development</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">Scheduled</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                May 20, 2023
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex justify-end space-x-2">
-                                    <a href="#"
-                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="#"
-                                        class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="#"
-                                        class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Published Post -->
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div
-                                        class="flex-shrink-0 h-10 w-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-file-alt text-blue-600 dark:text-blue-400"></i>
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900 dark:text-white">Mastering MongoDB
-                                            for Web Apps</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">mongodb, database</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900 dark:text-white">Admin</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Database</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Published</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                May 5, 2023
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex justify-end space-x-2">
-                                    <a href="#"
-                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="#"
-                                        class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="#"
-                                        class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                        <% }) %>
                     </tbody>
                 </table>
             </div>

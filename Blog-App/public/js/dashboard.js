@@ -212,11 +212,12 @@ function handleDrop(e) {
 }
 
 // Tag Handling
-const tags = [];
+// const tags = [];
 const tagInput = document.getElementById("tag-input");
 const tagsContainer = document.getElementById("tags-container");
 const hiddenTagsInput = document.getElementById("hidden-tags");
 const form = document.getElementById("post-form");
+const tags = JSON.stringify(post.tags || []);
 
 // Tombol "Add" secara manual
 document.getElementById("add-tag-btn").addEventListener("click", () => {
@@ -262,6 +263,8 @@ function updateTagsDisplay() {
 function removeTag(index) {
   tags.splice(index, 1);
   updateTagsDisplay();
+
+  updateTagsDisplay();
 }
 
 // Limitasi panjang excerpt
@@ -269,7 +272,6 @@ const excerptInput = document.querySelector('textarea[name="excerpt"]');
 if (excerptInput && excerptInput.value.length > 160) {
   excerptInput.value = excerptInput.value.slice(0, 160);
 }
-
 
 document.querySelector(".btn-publish").addEventListener("click", async () => {
   const form = document.getElementById("post-form");
