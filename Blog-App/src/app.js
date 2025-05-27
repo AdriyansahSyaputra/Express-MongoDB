@@ -9,6 +9,9 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 require("../config/db");
+const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
 require("dotenv").config();
 
 const app = express();
@@ -19,6 +22,10 @@ app.engine("ejs", ejs.renderFile);
 app.set("view options", {
   root: path.join(__dirname, "views"),
 });
+
+// Set Dayjs
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 // Set Middleware
 app.use(express.urlencoded({ extended: true }));

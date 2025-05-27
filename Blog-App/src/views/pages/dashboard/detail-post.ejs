@@ -13,13 +13,16 @@
             <h1 class="text-3xl font-bold text-gray-800 dark:text-white mt-2">Post Details</h1>
         </div>
         <div class="flex space-x-3">
-            <a href="/admin/posts/edit/1"
+            <a href="/dashboard/posts/<%= post._id %>/edit"
                 class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                 <i class="fas fa-edit mr-2"></i> Edit Post
             </a>
-            <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+            <form action="/dashboard/posts/<%= post._id %>?_method=DELETE" method="POST"
+                onsubmit="return confirm('Yakin ingin menghapus postingan ini?')">
+            <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
                 <i class="fas fa-trash mr-2"></i> Delete
             </button>
+            </form>
         </div>
     </div>
 
@@ -27,7 +30,7 @@
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
         <!-- Featured Image -->
         <div class="w-full h-64 bg-gray-200 dark:bg-gray-700 overflow-hidden">
-            <img src="https://via.placeholder.com/1200x630" alt="Featured Image" class="w-full h-full object-cover">
+            <img src="/img/uploads/<%= post.featuredImage %>" alt="<%= post.title %>" class="w-full h-full object-cover">
         </div>
 
         <!-- Post Meta -->
@@ -35,13 +38,13 @@
             <div class="flex flex-wrap items-center gap-4 mb-6">
                 <span
                     class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm font-medium rounded-full">
-                    Published
+                    <%= post.status %>
                 </span>
                 <span class="text-gray-600 dark:text-gray-400">
-                    <i class="fas fa-calendar-alt mr-1"></i> May 15, 2023
+                    <i class="fas fa-calendar-alt mr-1"></i> <%= post.formattedDate %>
                 </span>
                 <span class="text-gray-600 dark:text-gray-400">
-                    <i class="fas fa-user mr-1"></i> Admin
+                    <i class="fas fa-user mr-1"></i> <%= post.author.name %>
                 </span>
                 <span class="text-gray-600 dark:text-gray-400">
                     <i class="fas fa-eye mr-1"></i> 1,245 views
@@ -49,73 +52,34 @@
             </div>
 
             <!-- Post Title -->
-            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">Getting Started with Node.js</h1>
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-4"><%= post.title %></h1>
 
             <!-- Categories & Tags -->
             <div class="flex flex-wrap gap-2 mb-6">
+                <% post.categories.map((category) => { %>
                 <a href="#"
-                    class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
-                    Web Development
+                    class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors capitalize">
+                    <%= category.name %>
                 </a>
-                <a href="#"
-                    class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
-                    Node.js
-                </a>
-                <span
-                    class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-full">
-                    javascript
-                </span>
-                <span
-                    class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-full">
-                    backend
-                </span>
+                <% }) %>
+
+                <% post.tags.map((tag) => { %> 
+                    <span
+                        class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-full capitalize">
+                        #<%= tag %>
+                    </span>
+                <% }) %>
             </div>
 
             <!-- Excerpt -->
             <div
                 class="bg-blue-50 dark:bg-gray-700 border-l-4 border-blue-500 dark:border-blue-400 p-4 mb-6 rounded-r-lg">
-                <p class="text-gray-800 dark:text-gray-200 italic">Learn the basics of Node.js and how to create your
-                    first server.</p>
+                <p class="text-gray-800 dark:text-gray-200 italic"><%= post.excerpt %></p>
             </div>
 
             <!-- Post Content -->
             <div class="content-body prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
-                <h2>Introduction to Node.js</h2>
-                <p>Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allows you to run
-                    JavaScript on the server side.</p>
-
-                <h3>Key Features:</h3>
-                <ul>
-                    <li>Asynchronous and Event Driven</li>
-                    <li>Single Threaded but Highly Scalable</li>
-                    <li>Fast Execution</li>
-                </ul>
-
-                <img src="https://via.placeholder.com/800x400" alt="Node.js Architecture" class="rounded-lg">
-
-                <h3>Creating Your First Server</h3>
-                <p>Here's a simple example of a Node.js server:</p>
-
-                <pre><code class="language-javascript">const http = require('http');
-
-const server = http.createServer((req, res) => {
-res.writeHead(200, {'Content-Type': 'text/plain'});
-res.end('Hello World\n');
-});
-
-server.listen(3000, () => {
-console.log('Server running at http://localhost:3000/');
-});</code></pre>
-
-                <h3>Why Use Node.js?</h3>
-                <p>Node.js is perfect for data-intensive real-time applications that run across distributed devices.
-                    It's lightweight and efficient, perfect for:</p>
-                <ul>
-                    <li>APIs and microservices</li>
-                    <li>Real-time applications (chats, gaming)</li>
-                    <li>Data streaming applications</li>
-                    <li>Server-side web applications</li>
-                </ul>
+                <%- post.content %>
             </div>
         </div>
 
@@ -123,7 +87,7 @@ console.log('Server running at http://localhost:3000/');
         <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-4 bg-gray-50 dark:bg-gray-700">
             <div class="flex justify-between items-center">
                 <div class="text-sm text-gray-600 dark:text-gray-400">
-                    Last updated: May 16, 2023 at 14:30
+                    Last updated: <%= post.formattedUpdatedAt %>
                 </div>
                 <div class="flex space-x-4">
                     <button class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">

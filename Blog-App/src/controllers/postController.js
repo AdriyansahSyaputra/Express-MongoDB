@@ -93,7 +93,7 @@ const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
-    if(!post) return res.status(404).send("Post not found");
+    if (!post) return res.status(404).send("Post not found");
 
     // Delete file image
     if (post.featuredImage) {
@@ -114,13 +114,14 @@ const deletePost = async (req, res) => {
     console.error("Error deleting post:", err.message);
     res.status(500).send("Server Error");
   }
-}
+};
 
+// Show data post in edit form
 const editPostForm = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id).populate("categories");
 
-    if(!post) return res.status(404).send("Post not found");
+    if (!post) return res.status(404).send("Post not found");
 
     // Ambil daftar kategori
     const categories = await Category.find();
@@ -134,12 +135,113 @@ const editPostForm = async (req, res) => {
     console.error("Error fetching post:", err.message);
     res.status(500).send("Server Error");
   }
-}
+};
+
+// Update post
+const updatePost = async (req, res) => {
+  const { title, content, excerpt, categories, tags, status } = req.body;
+
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) return res.status(404).send("Post not found");
+
+    // Parse tags
+    let parsedTags = [];
+    if (tags) {
+      if (typeof tags === "string") {
+        try {
+          parsedTags = JSON.parse(tags);
+        } catch (err) {
+          parsedTags = tags
+            .split(",")
+            .map((t) => t.trim())
+            .filter(Boolean);
+        }
+      } else if (Array.isArray(tags)) {
+        parsedTags = tags.filter(Boolean);
+      }
+    }
+
+    post.title = title?.trim();
+    post.content = content?.trim();
+    post.excerpt = excerpt || content.substring(0, 160);
+    post.categories = categories;
+    post.tags = parsedTags.map((tag) => tag.trim().toLowerCase());
+    post.status = status || "draft";
+
+    if (req.file) {
+      // Hapus file lama jika ada
+      if (post.featuredImage) {
+        const filePath = path.join(
+          __dirname,
+          "../../public/img/uploads/",
+          post.featuredImage
+        );
+        try {
+          if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+          }
+        } catch (err) {
+          console.error("Gagal menghapus file:", err.message);
+        }
+      }
+
+      post.featuredImage = req.file.filename;
+    }
+
+    // Hapus file jika terjadi error saat save
+    if (req.file) {
+      const filePath = path.join(
+        __dirname,
+        "../../public/img/uploads/",
+        req.file.filename
+      );
+      fs.unlink(filePath, (err) => {
+        if (err) console.error("Gagal menghapus file:", err.message);
+      });
+    }
+
+    await post.save();
+    req.flash("success", "Post berhasil diperbarui.");
+    res.redirect("/dashboard/posts");
+  } catch (err) {
+    console.error("Error updating post:", err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Show detail data
+const detailPost = async (req, res) => {
+  try {
+    // Temukan data berdasarkan slug
+    const post = await Post.findOne({ slug: req.params.slug })
+      .populate("categories")
+      .populate("author");
+
+    if (!post) return res.status(404).send("Post not found");
+
+    // format tanggal sebelum dikirim ke EJS
+    post.formattedDate = dayjs(post.publishedAt).format("MMM DD, YYYY");
+
+    // format tanggal last update
+    post.formattedUpdatedAt = dayjs(post.updatedAt)
+      .tz("Asia/Jakarta")
+      .format("MMM DD, YYYY - hh:mm A");
+
+    res.render("./pages/dashboard/detail-post", { title: "Detail Post", post });
+  } catch (err) {
+    console.error("Error fetching post:", err.message);
+    res.status(500).send("Server Error");
+  }
+};
 
 module.exports = {
   createPost,
   fetchCategories,
   getAllPosts,
   deletePost,
-  editPostForm
+  editPostForm,
+  updatePost,
+  detailPost,
 };

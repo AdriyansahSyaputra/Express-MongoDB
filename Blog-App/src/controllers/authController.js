@@ -69,10 +69,10 @@ const login = async (req, res) => {
       const adminUser = {
         _id: "admin-id",
         email: process.env.ADMIN_EMAIL,
-        role: "admin",
+        role: "administrator",
       };
       const token = jwt.sign(
-        { _id: adminUser._id, role: "admin" },
+        { _id: adminUser._id, role: "administrator" },
         process.env.JWT_SECRET,
         {
           expiresIn: "1d",
@@ -106,7 +106,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { _id: user._id, role: "user" },
+      { _id: user._id, role: "viewer" },
       process.env.JWT_SECRET,
       {
         expiresIn: "1d",

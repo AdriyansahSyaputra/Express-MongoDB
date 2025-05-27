@@ -217,7 +217,14 @@ const tagInput = document.getElementById("tag-input");
 const tagsContainer = document.getElementById("tags-container");
 const hiddenTagsInput = document.getElementById("hidden-tags");
 const form = document.getElementById("post-form");
-const tags = JSON.stringify(post.tags || []);
+
+// Ambil data tag dari input hidden saat load halaman
+let tags = [];
+try {
+  tags = JSON.parse(hiddenTagsInput.value) || [];
+} catch (err) {
+  tags = [];
+}
 
 // Tombol "Add" secara manual
 document.getElementById("add-tag-btn").addEventListener("click", () => {
@@ -291,3 +298,19 @@ document.querySelector(".btn-publish").addEventListener("click", async () => {
     alert("Post berhasil dibuat!");
   }
 });
+
+// Toggle password visibility
+function togglePasswordVisibility(fieldId) {
+  const field = document.getElementById(fieldId);
+  const eyeIcon = document.getElementById(`${fieldId}-eye`);
+
+  if (field.type === "password") {
+    field.type = "text";
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
+  } else {
+    field.type = "password";
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
+  }
+}
