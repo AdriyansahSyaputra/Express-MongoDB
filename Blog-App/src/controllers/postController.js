@@ -236,6 +236,17 @@ const detailPost = async (req, res) => {
   }
 };
 
+// Ambil 3 data post terbaru
+const getTrendingPosts = async () => {
+  try {
+    const posts = await Post.find().sort({ createdAt: -1 }).limit(3).lean();
+    return posts;
+  } catch (err) {
+    console.error("Error fetching posts:", err.message);
+    return [];
+  }
+};
+
 module.exports = {
   createPost,
   fetchCategories,

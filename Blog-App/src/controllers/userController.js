@@ -44,4 +44,64 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { createUser, getAllUsers };
+// Display data to form edit
+const editUserForm = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) return res.status(404).send("User not found");
+
+    res.render("./pages/dashboard/edit-user", { title: "Edit User", user });
+  } catch (err) {
+    console.error("Error fetching user:", err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Update user
+const updateUser = async (req, res) => {
+  const { name, username, email, phone, role } = req.body;
+
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) return res.status(404).send("User not found");
+
+    user.name = name;
+    user.username = username;
+    user.email = email;
+    user.phone = phone;
+    user.role = role;
+
+    await user.save();
+    req.flash("success", "User updated successfully!");
+    res.redirect("/dashboard/users");
+  } catch (err) {
+    console.error("Error updating user:", err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Delete user
+const deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) return res.status(404).send("User not found");
+
+    await User.findByIdAndDelete(req.params.id);
+    req.flash("success", "User deleted successfully!");
+    res.redirect("/dashboard/users");
+  } catch (err) {
+    console.error("Error deleting user:", err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+module.exports = {
+  createUser,
+  getAllUsers,
+  editUserForm,
+  updateUser,
+  deleteUser,
+};

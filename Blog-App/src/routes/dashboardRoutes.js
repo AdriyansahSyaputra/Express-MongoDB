@@ -20,7 +20,13 @@ const {
   createUserValidator,
   validateUser,
 } = require("../validators/userValidators");
-const { createUser, getAllUsers } = require("../controllers/userController");
+const {
+  createUser,
+  getAllUsers,
+  editUserForm,
+  updateUser,
+  deleteUser,
+} = require("../controllers/userController");
 
 router.get("/", (req, res) => {
   res.render("./pages/dashboard/home", { title: "Home" });
@@ -96,5 +102,14 @@ router.get("/users/new", (req, res) => {
 });
 
 router.post("/users/new", auth, createUserValidator, validateUser, createUser);
+
+// Route edit User
+router.get("/users/:id/edit", auth, editUserForm);
+
+// Route update User
+router.put("/users/:id", auth, updateUser);
+
+// Route delete user
+router.delete("/users/:id", auth, deleteUser);
 
 module.exports = router;
