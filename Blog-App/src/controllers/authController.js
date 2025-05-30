@@ -105,12 +105,11 @@ const login = async (req, res) => {
       return res.redirect("/auth#login");
     }
 
+    // Payload token sesuai data user
     const token = jwt.sign(
-      { _id: user._id, role: "viewer" },
+      { _id: user._id, role: user.role, name: user.name, email: user.email },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
+      { expiresIn: "1d" }
     );
 
     res.cookie("token", token, {
@@ -119,6 +118,10 @@ const login = async (req, res) => {
     });
 
     req.flash("success", "Login successfully!");
+
+    // Redirect berdasarkan role
+    if (user.role === "administrator") return res.redirect("/dashboard");
+    if (user.role === "author") return res.redirect("/");
     return res.redirect("/");
   } catch (err) {
     console.error("Login error:", err);

@@ -12,6 +12,7 @@ require("../config/db");
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
+const setUser = require("./middlewares/setUser");
 require("dotenv").config();
 
 const app = express();
@@ -70,6 +71,9 @@ app.use((req, res, next) => {
 
   next();
 });
+
+// Middleware set user ke res.locals
+app.use(setUser);
 
 // Routes
 app.use("/", clientRoutes);

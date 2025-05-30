@@ -229,7 +229,7 @@ const detailPost = async (req, res) => {
       .tz("Asia/Jakarta")
       .format("MMM DD, YYYY - hh:mm A");
 
-    res.render("./pages/dashboard/detail-post", { title: "Detail Post", post });
+    return post;
   } catch (err) {
     console.error("Error fetching post:", err.message);
     res.status(500).send("Server Error");
@@ -239,11 +239,54 @@ const detailPost = async (req, res) => {
 // Ambil 3 data post terbaru
 const getTrendingPosts = async () => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 }).limit(3).lean();
+    const posts = await Post.find({ status: "published" })
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .populate("author", "name")
+      .populate("categories", "name")
+      .lean();
     return posts;
   } catch (err) {
     console.error("Error fetching posts:", err.message);
     return [];
+  }
+};
+
+// Search Post
+const getAllPostsSearch = async (req, res) => {
+  const keyword = req.query.search;
+
+  try {
+    let filter = { status: "published" };
+
+    if (keyword) {
+      filter.$or = [
+        { title: { $regex: keyword, $options: "i" } },
+        { excerpt: { $regex: keyword, $options: "i" } },
+        { tags: { $regex: keyword, $options: "i" } },
+      ];
+    }
+
+    let posts = await Post.find(filter)
+      .populate("author", "name")
+      .populate("categories", "name")
+      .sort({ createdAt: -1 })
+      .lean();
+
+    // Format tanggal
+    posts = posts.map((post) => ({
+      ...post,
+      formattedDate: dayjs(post.createdAt).format("MMM DD, YYYY"),
+    }));
+
+    res.render("./pages/clients/blog", {
+      title: "Blog",
+      posts,
+      keyword,
+    });
+  } catch (err) {
+    console.error("Error fetching posts:", err.message);
+    res.status(500).send("Terjadi kesalahan saat memuat data.");
   }
 };
 
@@ -255,4 +298,6 @@ module.exports = {
   editPostForm,
   updatePost,
   detailPost,
+  getTrendingPosts,
+  getAllPostsSearch,
 };

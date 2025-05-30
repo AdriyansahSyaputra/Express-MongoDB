@@ -15,6 +15,12 @@ router.get("/", (req, res) => {
   });
 });
 
+router.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  req.flash("success", "Logged out successfully.");
+  res.redirect("/");
+});
+
 router.post("/register", registerValidation, validateRegister, register);
 router.post("/login", loginValidation, validateLogin, login);
 

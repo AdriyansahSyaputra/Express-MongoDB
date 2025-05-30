@@ -120,53 +120,55 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Article 1 -->
-                    <div
-                        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-                        <div class="relative overflow-hidden h-60">
-                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                src="/img/trending1.jpg" alt="Article">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
-                            </div>
-                            <div class="absolute top-4 right-4">
-                                <span
-                                    class="bg-cyan-600 text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-arrow-up mr-1"></i> 78%
-                                </span>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
-                                <span
-                                    class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-400 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
-                                    <i class="fas fa-code mr-1"></i> Programming
-                                </span>
-                                <span class="mx-2">•</span>
-                                <span><i class="far fa-clock mr-1"></i> 15 Min Read</span>
-                            </div>
-                            <h3
-                                class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-                                <a href="/article/1">Next.js 13: Revolution in React Framework</a>
-                            </h3>
-                            <p class="text-gray-600 dark:text-gray-300 mb-4">
-                                Explore the groundbreaking features of Next.js 13 and how it's changing the React
-                                ecosystem.
-                            </p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <img class="w-8 h-8 rounded-full mr-2" src="/img/author2.jpg" alt="Author">
-                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Mike Chen</span>
+                    <% posts.forEach(post=> { %>
+                        <div
+                            class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                            <div class="relative overflow-hidden h-60">
+                                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    src="/img/uploads/<%= post.featuredImage %>" alt="Article">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
                                 </div>
-                                <div class="flex items-center text-gray-500 dark:text-gray-400 text-sm">
-                                    <i class="far fa-eye mr-1"></i> 24.5K
+                                <div class="absolute top-4 right-4">
+                                    <span
+                                        class="bg-cyan-600 text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 78%
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                                    <span
+                                        class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-400 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center">
+                                        <i class="fas fa-code mr-1"></i>
+                                        <%= post.categories[0]?.name %>
+                                    </span>
                                     <span class="mx-2">•</span>
-                                    <i class="far fa-comment-dots mr-1"></i> 342
+                                    <span><i class="far fa-clock mr-1"></i> 15 Min Read</span>
+                                </div>
+                                <h3
+                                    class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                                    <a href="/article/1">Next.js 13: Revolution in React Framework</a>
+                                </h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                    <%= post.excerpt %>
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <img class="w-8 h-8 rounded-full mr-2" src="/img/default.jpg" alt="Author">
+                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            <%= post.author.name %>
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                                        <i class="far fa-eye mr-1"></i> 24.5K
+                                        <span class="mx-2">•</span>
+                                        <i class="far fa-comment-dots mr-1"></i> 342
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Article 2 & 3 would follow similar structure -->
+                        <% }) %>;
                 </div>
             </div>
         </section>

@@ -1,0 +1,217 @@
+<%- include('/layouts/clients/header') %>
+    <%- include('/layouts/clients/navbar') %>
+
+        <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Article Header -->
+            <article>
+                <header class="mb-8">
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <% post.categories.forEach(category=> { %>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                            <%= category.name %>
+                        </span>
+                        <% }) %>
+                        <span class="mx-2">•</span>
+                        <time datetime="2023-05-15">
+                            <i class="far fa-calendar-alt mr-1"></i> <%= post.formattedDate %>
+                        </time>
+                        <span class="mx-2">•</span>
+                        <span>
+                            <i class="far fa-clock mr-1"></i> 5 min read
+                        </span>
+                    </div>
+
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                        <%= post.title %>
+                    </h1>
+
+                    <div class="flex items-center mt-6">
+                        <img class="w-10 h-10 rounded-full mr-4" src="/img/default.jpg"
+                            alt="Author">
+                        <div>
+                            <p class="font-medium text-gray-900"><%= post.author.name %></p>
+                            <p class="text-gray-500 text-sm">Frontend Developer & Blogger</p>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Featured Image -->
+                <figure class="mb-8">
+                    <img class="w-full h-auto rounded-lg shadow-md"
+                        src="/img/uploads/<%= post.featuredImage %>" alt="Featured Image">
+                    <figcaption class="mt-2 text-sm text-center text-gray-500">
+                        Web development concepts illustration (Credit: Unsplash)
+                    </figcaption>
+                </figure>
+
+                <!-- Article Content -->
+                <div class="prose max-w-none prose-indigo prose-lg">
+                    <%- post.content %>
+                </div>
+
+                <!-- Tags -->
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-sm font-medium">Tags:</span>
+                        <% post.tags.forEach(tag => { %>
+                        <a href="#"
+                            class="px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full hover:bg-gray-200">#<%= tag %></a>
+                        <% }) %>
+                    </div>
+                </div>
+
+                <!-- Author Bio -->
+                <div class="mt-8 p-6 bg-gray-50 rounded-lg">
+                    <div class="flex items-center">
+                        <img class="w-16 h-16 rounded-full mr-4" src="/img/default.jpg"
+                            alt="Author">
+                        <div>
+                            <h3 class="font-bold text-lg">About <%= post.author.name %></h3>
+                            <p class="text-gray-600">Sarah is a frontend developer with over 8 years of experience. She
+                                loves
+                                writing about web technologies and sharing her knowledge with the community.</p>
+                            <div class="flex mt-2 space-x-4">
+                                <a href="#" class="text-gray-500 hover:text-indigo-600">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-indigo-600">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-indigo-600">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Comments Section -->
+            <section class="mt-12">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="far fa-comments text-indigo-600 mr-2"></i> Comments (3)
+                </h2>
+
+                <div class="space-y-6">
+                    <!-- Comment 1 -->
+                    <div class="flex">
+                        <img class="w-10 h-10 rounded-full mr-4" src="https://randomuser.me/api/portraits/men/32.jpg"
+                            alt="User">
+                        <div class="flex-1">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="font-bold">Michael Chen</h4>
+                                    <span class="text-sm text-gray-500">2 days ago</span>
+                                </div>
+                                <p class="text-gray-700">Great article! I've been experimenting with AI tools in my
+                                    workflow and
+                                    it's been a game changer.</p>
+                                <div class="flex mt-3 text-sm text-gray-500">
+                                    <button class="flex items-center mr-4 hover:text-indigo-600">
+                                        <i class="far fa-thumbs-up mr-1"></i> 5
+                                    </button>
+                                    <button class="flex items-center hover:text-indigo-600">
+                                        <i class="far fa-thumbs-down mr-1"></i> 0
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comment 2 -->
+                    <div class="flex">
+                        <img class="w-10 h-10 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/65.jpg"
+                            alt="User">
+                        <div class="flex-1">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="font-bold">Emma Rodriguez</h4>
+                                    <span class="text-sm text-gray-500">1 week ago</span>
+                                </div>
+                                <p class="text-gray-700">I'd love to see more details about your experience with Web
+                                    Components.
+                                    Are they really ready for production?</p>
+                                <div class="flex mt-3 text-sm text-gray-500">
+                                    <button class="flex items-center mr-4 hover:text-indigo-600">
+                                        <i class="far fa-thumbs-up mr-1"></i> 2
+                                    </button>
+                                    <button class="flex items-center hover:text-indigo-600">
+                                        <i class="far fa-thumbs-down mr-1"></i> 0
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comment Form -->
+                    <div class="mt-8">
+                        <h3 class="text-lg font-medium mb-4">Leave a comment</h3>
+                        <form>
+                            <div class="mb-4">
+                                <textarea rows="4"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    placeholder="Write your thoughts here..."></textarea>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="submit"
+                                    class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    Post Comment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Related Articles -->
+        <section class="bg-gray-50 py-12">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-bold mb-8 flex items-center">
+                    <i class="fas fa-book-open mr-2 text-indigo-600"></i> You might also like
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Article 1 -->
+                    <article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <a href="#">
+                            <img class="w-full h-48 object-cover"
+                                src="https://source.unsplash.com/random/400x300/?coding" alt="Article">
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-2">
+                                    <span>May 2, 2023</span>
+                                    <span class="mx-2">•</span>
+                                    <span>4 min read</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Mastering Modern JavaScript Patterns</h3>
+                                <p class="text-gray-600">Explore the latest JavaScript design patterns that can make
+                                    your code
+                                    more maintainable and efficient.</p>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <a href="#">
+                            <img class="w-full h-48 object-cover"
+                                src="https://source.unsplash.com/random/400x300/?design" alt="Article">
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-2">
+                                    <span>April 18, 2023</span>
+                                    <span class="mx-2">•</span>
+                                    <span>6 min read</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">CSS Container Queries: The Future of Responsive
+                                    Design</h3>
+                                <p class="text-gray-600">Learn how container queries will revolutionize how we think
+                                    about
+                                    responsive web design.</p>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <%- include('/layouts/clients/footer') %>
